@@ -1,4 +1,6 @@
 import * as React from 'react';
+import Link from "next/link";
+import { useRouter } from 'next/router';
 import { makeStyles } from "@material-ui/core";
 import { styled, alpha } from '@mui/material/styles';
 import AppBar from '@mui/material/AppBar';
@@ -12,8 +14,10 @@ import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import SearchIcon from '@mui/icons-material/Search';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
-import Grid from '@material-ui/core/Grid'
 import Container from '@mui/material/Container';
+import Button from '@mui/material/Button';
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
+import ArrowLeftIcon from '@mui/icons-material/ArrowLeft';
 
 
 
@@ -67,10 +71,18 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-
-
-
- const SearchAppBar = () => {
+ const Header = () => {
+  const router = useRouter();
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [jewelryMenu, setJewelryMenu] = React.useState(null);
+  const [headpiecesMenu, seteadpiecesMenu] = React.useState(null);
+  const open = Boolean(anchorEl);
+  const handleClick = (e) => {
+    setAnchorEl(e.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
 
 
   return (
@@ -78,59 +90,102 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
       <AppBar position="static">
         <Container maxWidth="lg">
           <Toolbar style={{marginTop:'0.5rem'}}>
-            <Typography
+          <Link href={"/"} passHref>
+          <Typography
               variant="h6"
               noWrap
               component="div"
               sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
               href="/"
             >
-              <img src="./logo.png" alt="logo" style={{ width: '60px', height: '60px' }} />
+              <img src="./logo.png" alt="logo" style={{ width: '60px', height: '60px', cursor:'pointer' }} />
             </Typography>
-
-            <Typography
-              variant="body"
-              noWrap
-              component="div"
-              sx={{ flexGrow: 0.2, display: { xs: 'none', sm: 'block' } }}
-            >
-              NEW ARRIVALS
-            </Typography>
-            <Typography
-              variant="body"
-              noWrap
-              component="div"
-              sx={{ flexGrow: 0.2, display: { xs: 'none', sm: 'block' } }}
-            >
-              JEWELRY
-            </Typography>
-            <Typography
-              variant="body"
-              noWrap
-              component="div"
-              sx={{ flexGrow: 0.2, display: { xs: 'none', sm: 'block' } }}
-            >
-              HEADPIECES
-            </Typography>
-            <Typography
-              variant="body"
-              noWrap
-              component="div"
-              sx={{ flexGrow: 0.2, display: { xs: 'none', sm: 'block' } }}
-            >
-              SALE
-            </Typography>
-            <Typography
-              variant="body"
-              noWrap
-              component="div"
-              sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
-            >
-              CONTACT
-            </Typography>
-
-            
-
+                </Link>
+            <div style={{marginRight:'10rem'}}>
+              <Button
+                style={{ color: 'white', fontSize: '12px' }}
+                id="basic-button"
+                aria-controls={open ? 'basic-menu' : undefined}
+                aria-haspopup="true"
+                aria-expanded={open ? 'true' : undefined}
+                onClick={() => console.log('NEW ARRIVALS')}
+              >
+                NEW ARRIVALS
+              </Button>
+              <Button
+                name="Jewelry"
+                style={{ color: 'white', fontSize: '12px' }}
+                id="basic-button"
+                aria-controls={open ? 'basic-menu' : undefined}
+                aria-haspopup="true"
+                aria-expanded={open ? 'true' : undefined}
+                onClick={handleClick}
+              >
+                Jewelry
+                {(anchorEl &&  anchorEl.name === 'Jewelry')? <ArrowLeftIcon/> : <ArrowDropDownIcon/>}
+              </Button>
+              <Menu
+                id="basic-menu"
+                anchorEl={anchorEl}
+                open={open}
+                onClose={handleClose}
+                MenuListProps={{
+                  'aria-labelledby': 'basic-button',
+                }}
+              >
+                <MenuItem onClick={handleClose}>Earrings</MenuItem>
+                <MenuItem onClick={handleClose}>Bracelets</MenuItem>
+                <MenuItem onClick={handleClose}>Brooches</MenuItem>
+                <MenuItem onClick={handleClose}>Jewelry Sets</MenuItem>
+              </Menu>
+              <Button
+                name="Headpieces"
+                style={{ color: 'white', fontSize: '12px' }}
+                id="basic-button"
+                aria-controls={open ? 'basic-menu' : undefined}
+                aria-haspopup="true"
+                aria-expanded={open ? 'true' : undefined}
+                onClick={handleClick}
+              >
+                Headpieces
+                 {(anchorEl &&  anchorEl.name === 'Headpieces') ? <ArrowLeftIcon/> : <ArrowDropDownIcon/>}
+              </Button>
+             
+              <Menu
+                id="basic-menu"
+                anchorEl={anchorEl}
+                open={open}
+                onClose={handleClose}
+                MenuListProps={{
+                  'aria-labelledby': 'basic-button',
+                }}
+              >
+                <MenuItem onClick={handleClose}>Tiaras & Crowns</MenuItem>
+                <MenuItem onClick={handleClose}>Hair Vines</MenuItem>
+                <MenuItem onClick={handleClose}>Hair Pins</MenuItem>
+                <MenuItem onClick={handleClose}>Hair Combs</MenuItem>
+              </Menu>
+              <Button
+                style={{ color: 'white', fontSize: '12px' }}
+                id="basic-button"
+                aria-controls={open ? 'basic-menu' : undefined}
+                aria-haspopup="true"
+                aria-expanded={open ? 'true' : undefined}
+                onClick={() => console.log('SALE')}
+              >
+                SALE
+              </Button>
+              <Button
+                style={{ color: 'white', fontSize: '12px' }}
+                id="basic-button"
+                aria-controls={open ? 'basic-menu' : undefined}
+                aria-haspopup="true"
+                aria-expanded={open ? 'true' : undefined}
+                onClick={() => console.log('contact')}
+              >
+                CONTACT
+              </Button>
+            </div>
             <Search>
               <SearchIconWrapper>
                 <SearchIcon />
@@ -148,7 +203,9 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
                 aria-label="open drawer"
                 sx={{ mr: 2 }}
               >
-                <FavoriteBorderIcon />
+                  <Link href={"/shop/wishlist"} passHref>
+                  <FavoriteBorderIcon />
+                </Link>
               </IconButton>
               <IconButton
                 size="large"
@@ -157,7 +214,9 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
                 aria-label="open drawer"
                 sx={{ mr: 2 }}
               >
-                <ShoppingCartIcon />
+                <Link href={"/shop/cart"} passHref>
+                  <ShoppingCartIcon />
+                </Link>
               </IconButton>
             </div>
 
@@ -168,4 +227,4 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   );
 }
 
-export default SearchAppBar
+export default Header
