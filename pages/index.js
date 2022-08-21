@@ -15,7 +15,6 @@ import Typography from '@mui/material/Typography';
 import { CardActionArea } from '@mui/material';
 import Divider from '@mui/material/Divider';
 import { Accordion, AccordionSummary, AccordionDetails } from '@mui/material';
-
 import Checkbox from '@mui/material/Checkbox';
 import FavoriteBorder from '@mui/icons-material/FavoriteBorder';
 import Favorite from '@mui/icons-material/Favorite';
@@ -24,6 +23,17 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import Slider from '@mui/material/Slider';
+
+
+import { useQuery, gql } from '@apollo/client';
+import { useLazyQuery } from '@apollo/client';
+import { GET_PRODUCTS } from '../server/queries';
+
+import { useRouter } from 'next/router';
+import { useState, useEffect, useRef } from 'react';
+
+
+
 
 
 
@@ -40,7 +50,27 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 
 const Home = () => {
-  const [value, setValue] = React.useState([0, 100]);
+
+  const {data, error, loading} = useQuery(GET_PRODUCTS )
+
+  const [products, setProducts] = useState([]);
+  const [value, setValue] = useState([0, 100]);
+
+
+  useEffect(() => {
+    if (data) {
+      const resProducts = data.products.data.map(each => each.attributes)
+      setProducts(resProducts);
+    }
+  }, [data])
+  
+
+
+  
+
+  
+console.log('products', products)
+
 
   const handleChange = (e, newValue) => {
     setValue(newValue);
@@ -127,176 +157,34 @@ const Home = () => {
 
 
 <Grid container spacing={2}>
+
+{products.map((product) => (
+  <>
   <Grid item lg={3} md={4} sm={6} xs={12}>
   <Card sx={{ maxWidth: 345 }}>
       <CardActionArea>
           <CardMedia
           component="img"
           height="240"
-          image="/bb1.jpg"
+          image= {process.env.NEXT_PUBLIC_SERVER_URL + product.images.data[0].attributes.url }
           alt="green iguana"
         />
         <CardContent>
         <Divider variant="middle" />
-          <Typography gutterBottom variant="h6" component="div">
-          <Checkbox {...label} icon={<FavoriteBorder />} checkedIcon={<Favorite />}/> Evelyn Earrings
+          <Typography gutterBottom variant="h6" component="div" style={{fontSize:'14px'}}>
+          <Checkbox {...label} icon={<FavoriteBorder />} checkedIcon={<Favorite />}/> {product.name}
           </Typography>
           <Typography variant="body2" color="text.secondary">
-           Price: £85.50
+           Price: £{product.price.toFixed( 2 )}
           </Typography>
         </CardContent>
       </CardActionArea>
     </Card>
-
-  </Grid>
-  <Grid item lg={3} md={4} sm={6} xs={12}>
-  <Card sx={{ maxWidth: 345 }}>
-      <CardActionArea>
-        <CardMedia
-          component="img"
-          height="240"
-          image="/bb1.jpg"
-          alt="green iguana"
-        />
-        <CardContent>
-        <Divider variant="middle" />
-          <Typography gutterBottom variant="h6" component="div">
-          <Checkbox {...label} icon={<FavoriteBorder />} checkedIcon={<Favorite />}/>  Evelyn Earrings
-          </Typography>
-          <Typography variant="body2" color="text.secondary">
-           Price: £85.50
-          </Typography>
-        </CardContent>
-      </CardActionArea>
-    </Card>
-  </Grid>
-  <Grid item lg={3} md={4} sm={6} xs={12}>
-  <Card sx={{ maxWidth: 345 }}>
-      <CardActionArea>
-        <CardMedia
-          component="img"
-          height="240"
-          image="/bb1.jpg"
-          alt="green iguana"
-        />
-        <CardContent>
-        <Divider variant="middle" />
-          <Typography gutterBottom variant="h6" component="div">
-          <Checkbox {...label} icon={<FavoriteBorder />} checkedIcon={<Favorite />}/>  Evelyn Earrings
-          </Typography>
-          <Typography variant="body2" color="text.secondary">
-           Price: £85.50
-          </Typography>
-        </CardContent>
-      </CardActionArea>
-    </Card>
-  </Grid>
-  <Grid item lg={3} md={4} sm={6} xs={12}>
-  <Card sx={{ maxWidth: 345 }}>
-      <CardActionArea>
-        <CardMedia
-          component="img"
-          height="240"
-          image="/bb1.jpg"
-          alt="green iguana"
-        />
-        <CardContent>
-        <Divider variant="middle" />
-          <Typography gutterBottom variant="h6" component="div">
-          <Checkbox {...label} icon={<FavoriteBorder />} checkedIcon={<Favorite />}/>  Evelyn Earrings
-          </Typography>
-          <Typography variant="body2" color="text.secondary">
-           Price: £85.50
-          </Typography>
-        </CardContent>
-      </CardActionArea>
-    </Card>
-  </Grid>
-  <Grid item lg={3} md={4} sm={6} xs={12}>
-  <Card sx={{ maxWidth: 345 }}>
-      <CardActionArea>
-        <CardMedia
-          component="img"
-          height="240"
-          image="/bb1.jpg"
-          alt="green iguana"
-        />
-        <CardContent>
-        <Divider variant="middle" />
-          <Typography gutterBottom variant="h6" component="div">
-          <Checkbox {...label} icon={<FavoriteBorder />} checkedIcon={<Favorite />}/>  Evelyn Earrings
-          </Typography>
-          <Typography variant="body2" color="text.secondary">
-           Price: £85.50
-          </Typography>
-        </CardContent>
-      </CardActionArea>
-    </Card>
-  </Grid>
-  <Grid item lg={3} md={4} sm={6} xs={12}>
-  <Card sx={{ maxWidth: 345 }}>
-      <CardActionArea>
-        <CardMedia
-          component="img"
-          height="240"
-          image="/bb1.jpg"
-          alt="green iguana"
-        />
-        <CardContent>
-        <Divider variant="middle" />
-          <Typography gutterBottom variant="h6" component="div">
-          <Checkbox {...label} icon={<FavoriteBorder />} checkedIcon={<Favorite />}/>  Evelyn Earrings
-          </Typography>
-          <Typography variant="body2" color="text.secondary">
-           Price: £85.50
-          </Typography>
-        </CardContent>
-      </CardActionArea>
-    </Card>
-  </Grid>
-  <Grid item lg={3} md={4} sm={6} xs={12}>
-  <Card sx={{ maxWidth: 345 }}>
-      <CardActionArea>
-        <CardMedia
-          component="img"
-          height="240"
-          image="/bb1.jpg"
-          alt="green iguana"
-        />
-        <CardContent>
-        <Divider variant="middle" />
-          <Typography gutterBottom variant="h6" component="div">
-          <Checkbox {...label} icon={<FavoriteBorder />} checkedIcon={<Favorite />}/>  Evelyn Earrings
-          </Typography>
-          <Typography variant="body2" color="text.secondary">
-           Price: £85.50
-          </Typography>
-        </CardContent>
-      </CardActionArea>
-    </Card>
-  </Grid>
-  <Grid item lg={3} md={4} sm={6} xs={12}>
-  <Card sx={{ maxWidth: 345 }}>
-      <CardActionArea>
-        <CardMedia
-          component="img"
-          height="240"
-          image="/bb1.jpg"
-          alt="green iguana"
-        />
-        <CardContent>
-        <Divider variant="middle" />
-          <Typography gutterBottom variant="h6" component="div">
-          <Checkbox {...label} icon={<FavoriteBorder />} checkedIcon={<Favorite />}/>  Evelyn Earrings
-          </Typography>
-          <Typography variant="body2" color="text.secondary">
-           Price: £125.50
-          </Typography>
-        </CardContent>
-      </CardActionArea>
-    </Card>
-  </Grid>
+  </Grid> 
+  </>))}
   
+
+
 </Grid>
 
 
@@ -314,4 +202,4 @@ const Home = () => {
   )
 }
 
-export default Home
+export default Home;

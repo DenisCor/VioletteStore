@@ -3,6 +3,8 @@ import Header from '../src/components/Header'
 import Layout from '../src/components/Layout'
 import Footer from '../src/components/Footer'
 import {ThemeProvider, createTheme} from '@mui/material'
+import {ApolloProvider} from '@apollo/client'
+import apolloClient from "../server/apollo-client";
 import '../styles/globals.css'
 
 const Violette = ({ Component, pageProps }) => {
@@ -16,8 +18,10 @@ const Violette = ({ Component, pageProps }) => {
     },
   }});
 
+
   return (
-    <ThemeProvider theme={theme}>
+    <ApolloProvider client={apolloClient}>
+        <ThemeProvider theme={theme}>
       <Helmet>
         <title>Violette Store</title>
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
@@ -31,6 +35,8 @@ const Violette = ({ Component, pageProps }) => {
       </Layout>
       <Footer/>
     </ThemeProvider>
+    </ApolloProvider>
+  
   );
 }
 
