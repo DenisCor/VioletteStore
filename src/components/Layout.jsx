@@ -5,7 +5,7 @@ import Container from '@mui/material/Container';
 const Layout = ({children}) => {
   return (
     <div>
-        <Container maxWidth="lg" style={{border:'2px solid red', height:'120vh'}}>
+        <Container maxWidth="lg" style={{minHeight:'100vh'}}>
           {children}
         </Container>
     </div>

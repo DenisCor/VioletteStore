@@ -12,7 +12,7 @@ const Violette = ({ Component, pageProps }) => {
   const theme = createTheme({
     palette:{
       primary: {
-      main:'#5E457D',
+      main:'#524069',
     },
   }});
 
@@ -29,7 +29,7 @@ const Violette = ({ Component, pageProps }) => {
       <Layout>
         <Component {...pageProps} />
       </Layout>
-      {/* <Footer/> */}
+      <Footer/>
     </ThemeProvider>
   );
 }

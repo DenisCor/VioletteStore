@@ -75,10 +75,11 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
               variant="h6"
               noWrap
               component="div"
-              sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
+              sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block', fontSize:'24px' } }}
               href="/"
             >
-              <img src="./logo-min.png" alt="logo" style={{ width: '60px', height: '60px', cursor:'pointer' }} />
+              <img src="./violette-white2.png" alt="logo" style={{ width: '100px', height: '30px', cursor:'pointer' }} />
+           
             </Typography>
                 </Link>
             <div style={{paddingRight:'10rem'}}>
@@ -100,9 +101,9 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
                 aria-haspopup="true"
                 aria-expanded={open ? 'true' : undefined}
                 onClick={handleClick}
+                endIcon={(anchorEl &&  anchorEl.name === 'Jewelry') ?  <ArrowDropDownIcon/> : <ArrowLeftIcon/>}
               >
                 Jewelry
-                {(anchorEl &&  anchorEl.name === 'Jewelry')? <ArrowLeftIcon/> : <ArrowDropDownIcon/>}
               </Button>
               <Menu
                 id="basic-menu"
@@ -126,9 +127,9 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
                 aria-haspopup="true"
                 aria-expanded={open ? 'true' : undefined}
                 onClick={handleClick}
+                endIcon={(anchorEl &&  anchorEl.name === 'Headpieces') ?  <ArrowDropDownIcon/> : <ArrowLeftIcon/>}
               >
                 Headpieces
-                 {(anchorEl &&  anchorEl.name === 'Headpieces') ? <ArrowLeftIcon/> : <ArrowDropDownIcon/>}
               </Button>
              
               <Menu

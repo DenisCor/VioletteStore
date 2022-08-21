@@ -25,6 +25,35 @@ a {
   }
 } */
 
+
 body {
+
+  margin: 0;
+  padding: 0;
   background: rgb(235, 231, 231);
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.content {
+  flex: 1 0 auto;
+  padding: 10px;
+}
+
+.footer {
+  flex-shrink: 0;
+  background-color: #524069;
+  color: white;
+  height: 5rem;
+  position: "fixed";
+  left: 0;
+  bottom: 0;
+  height: 60px;
+  width: 100%;
+  margin-top: auto;
+  font-size: 12px;
 }
