@@ -1,33 +1,16 @@
 import * as React from 'react';
 import Link from "next/link";
-import { useRouter } from 'next/router';
-import { makeStyles } from "@material-ui/core";
 import { styled, alpha } from '@mui/material/styles';
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
-import InputBase from '@mui/material/InputBase';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import SearchIcon from '@mui/icons-material/Search';
-import Menu from '@mui/material/Menu';
-import MenuItem from '@mui/material/MenuItem';
-import Container from '@mui/material/Container';
-import Button from '@mui/material/Button';
+import {Button, Container, MenuItem, Menu, InputBase, Typography, IconButton, Toolbar, Box, AppBar } from '@mui/material';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import ArrowLeftIcon from '@mui/icons-material/ArrowLeft';
 
 
 
-const useStyles = makeStyles((theme) => ({
-  serviceInfo: {
-    lineHeight: "9px",
-    paddingRight: theme.spacing(1),
-    width: "65%",
-  },
-}))
+
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -72,10 +55,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
  const Header = () => {
-  const router = useRouter();
   const [anchorEl, setAnchorEl] = React.useState(null);
-  const [jewelryMenu, setJewelryMenu] = React.useState(null);
-  const [headpiecesMenu, seteadpiecesMenu] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (e) => {
     setAnchorEl(e.currentTarget);
@@ -87,7 +67,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static">
+      <AppBar position="static" >
         <Container maxWidth="lg">
           <Toolbar style={{marginTop:'0.5rem'}}>
           <Link href={"/"} passHref>
@@ -98,10 +78,10 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
               sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
               href="/"
             >
-              <img src="./logo.png" alt="logo" style={{ width: '60px', height: '60px', cursor:'pointer' }} />
+              <img src="./logo-min.png" alt="logo" style={{ width: '60px', height: '60px', cursor:'pointer' }} />
             </Typography>
                 </Link>
-            <div style={{marginRight:'10rem'}}>
+            <div style={{paddingRight:'10rem'}}>
               <Button
                 style={{ color: 'white', fontSize: '12px' }}
                 id="basic-button"
@@ -214,7 +194,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
                 aria-label="open drawer"
                 sx={{ mr: 2 }}
               >
-                <Link href={"/shop/cart"} passHref>
+                <Link href={"/shop/checkout"} passHref>
                   <ShoppingCartIcon />
                 </Link>
               </IconButton>
