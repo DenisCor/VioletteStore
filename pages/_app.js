@@ -2,11 +2,22 @@ import Helmet from "react-helmet";
 import Header from '../src/components/Header'
 import Layout from '../src/components/Layout'
 import Footer from '../src/components/Footer'
+import {ThemeProvider, createTheme} from '@mui/material'
 import '../styles/globals.css'
 
-const MyApp = ({ Component, pageProps }) => {
+const Violette = ({ Component, pageProps }) => {
+
+
+
+  const theme = createTheme({
+    palette:{
+      primary: {
+      main:'#524069',
+    },
+  }});
+
   return (
-    <>
+    <ThemeProvider theme={theme}>
       <Helmet>
         <title>Violette Store</title>
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
@@ -18,9 +29,9 @@ const MyApp = ({ Component, pageProps }) => {
       <Layout>
         <Component {...pageProps} />
       </Layout>
-      {/* <Footer/> */}
-    </>
+      <Footer/>
+    </ThemeProvider>
   );
 }
 
-export default MyApp
+export default Violette
