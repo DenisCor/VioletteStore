@@ -7,9 +7,17 @@ import SearchIcon from '@mui/icons-material/Search';
 import {Button, Container, MenuItem, Menu, InputBase, Typography, IconButton, Toolbar, Box, AppBar } from '@mui/material';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import ArrowLeftIcon from '@mui/icons-material/ArrowLeft';
+import Badge from '@mui/material/Badge';
 
 
-
+const StyledBadge = styled(Badge)(({ theme }) => ({
+  '& .MuiBadge-badge': {
+    right: -3,
+    top: 13,
+    border: `2px solid white`,
+    padding: '0 4px',
+  },
+}));
 
 
 const Search = styled('div')(({ theme }) => ({
@@ -196,7 +204,9 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
                 sx={{ mr: 2 }}
               >
                 <Link href={"/shop/checkout"} passHref>
-                  <ShoppingCartIcon />
+                  <StyledBadge badgeContent={2} >
+                    <ShoppingCartIcon />
+                  </StyledBadge>
                 </Link>
               </IconButton>
             </div>

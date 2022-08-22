@@ -23,6 +23,8 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import Slider from '@mui/material/Slider';
+import CircularProgress from '@mui/material/CircularProgress';
+import Link from 'next/link'
 
 
 import { useQuery, gql } from '@apollo/client';
@@ -31,6 +33,7 @@ import { GET_PRODUCTS } from '../server/queries';
 
 import { useRouter } from 'next/router';
 import { useState, useEffect, useRef } from 'react';
+import { categoryNames, sortByNames } from '../utils/constants';
 
 
 
@@ -52,9 +55,10 @@ const Item = styled(Paper)(({ theme }) => ({
 const Home = () => {
 
   const {data, error, loading} = useQuery(GET_PRODUCTS )
-
   const [products, setProducts] = useState([]);
   const [value, setValue] = useState([0, 100]);
+
+
 
 
   useEffect(() => {
@@ -71,16 +75,24 @@ const Home = () => {
   
 console.log('products', products)
 
+//=====================================================================================================================
+
+  
+  
+  
 
   const handleChange = (e, newValue) => {
     setValue(newValue);
   };
   const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
   return (
-    <Container maxWidth="lg" style={{marginTop:'100px'}}>
 
-  
-      <Accordion sx={{ padding: '0.2rem', marginBottom: '1rem' }}>
+    <Container maxWidth="lg" style={{marginTop:'100px'}}>
+    {loading  ? <Box sx={{ display: 'flex', justifyContent:'center', alignContent:'center', marginTop:'400px' }}>
+      <CircularProgress />
+    </Box> : 
+    <>
+     <Accordion sx={{ padding: '0.2rem', marginBottom: '1rem' }}>
         <AccordionSummary aria-controls="panel1d-content" id="panel1d-header">
           <Button variant="outlined">Filters</Button>
         </AccordionSummary>
@@ -91,12 +103,11 @@ console.log('products', products)
                 Category:
               </Typography>
               <FormGroup>
-                <FormControlLabel  control={<Checkbox defaultChecked size="small" style={{ width: "20px", padding: 0, marginLeft: '0.5rem' }} />} label={<Typography sx={{paddingLeft:"5px"}} variant="body2">All</Typography>}/>
-                <FormControlLabel control={<Checkbox defaultChecked size="small" style={{ width: "20px", padding: 0, marginLeft: '0.5rem' }} />} label={<Typography sx={{paddingLeft:"5px"}} variant="body2">Earrings</Typography>}/>
-                <FormControlLabel control={<Checkbox defaultChecked size="small" style={{ width: "20px", padding: 0, marginLeft: '0.5rem' }} />}  label={<Typography sx={{paddingLeft:"5px"}} variant="body2">Bracelets</Typography>}/>
-                <FormControlLabel control={<Checkbox defaultChecked size="small" style={{ width: "20px", padding: 0, marginLeft: '0.5rem' }} />}  label={<Typography sx={{paddingLeft:"5px"}} variant="body2">Brooches</Typography>}/>
-                <FormControlLabel control={<Checkbox defaultChecked size="small" style={{ width: "20px", padding: 0, marginLeft: '0.5rem' }} />}  label={<Typography sx={{paddingLeft:"5px"}} variant="body2">Hairpieces</Typography>}/>
-                <FormControlLabel control={<Checkbox defaultChecked size="small" style={{ width: "20px", padding: 0, marginLeft: '0.5rem' }} />}  label={<Typography sx={{paddingLeft:"5px"}} variant="body2">Jewelry Sets</Typography>}/>
+                    {categoryNames.map(cat => (
+                      <>
+                        <FormControlLabel control={<Checkbox checked={cat.checked} size="small" style={{ width: "20px", padding: 0, marginLeft: '0.5rem' }} />} label={<Typography sx={{ paddingLeft: "5px" }} variant="body2">{cat.name}</Typography>} />
+                      </>
+                    ))}
               </FormGroup>
             </Grid>
             <Grid item lg={3} xs={12}>
@@ -104,10 +115,11 @@ console.log('products', products)
                 Sort By:
               </Typography>
               <FormGroup>
-                <FormControlLabel control={<Checkbox defaultChecked size="small" style={{ width: "20px", padding: 0, marginLeft: '0.5rem' }} />}  label={<Typography sx={{paddingLeft:"5px"}} variant="body2">Default</Typography>}/>
-                <FormControlLabel control={<Checkbox defaultChecked size="small" style={{ width: "20px", padding: 0, marginLeft: '0.5rem' }} />}  label={<Typography sx={{paddingLeft:"5px"}} variant="body2">Newness</Typography>}/>
-                <FormControlLabel control={<Checkbox defaultChecked size="small" style={{ width: "20px", padding: 0, marginLeft: '0.5rem' }} />}  label={<Typography sx={{paddingLeft:"5px"}} variant="body2">Price: Low To High</Typography>}/>
-                <FormControlLabel control={<Checkbox defaultChecked size="small" style={{ width: "20px", padding: 0, marginLeft: '0.5rem' }} />}  label={<Typography sx={{paddingLeft:"5px"}} variant="body2">Price: High To Low</Typography>}/>
+              {sortByNames.map(cat => (
+                      <>
+                        <FormControlLabel control={<Checkbox checked={cat.checked} size="small" style={{ width: "20px", padding: 0, marginLeft: '0.5rem' }} />} label={<Typography sx={{ paddingLeft: "5px" }} variant="body2">{cat.name}</Typography>} />
+                      </>
+                    ))}
               </FormGroup>
             </Grid>
             <Grid item lg={3} xs={12}>
@@ -163,12 +175,15 @@ console.log('products', products)
   <Grid item lg={3} md={4} sm={6} xs={12}>
   <Card sx={{ maxWidth: 345 }}>
       <CardActionArea>
-          <CardMedia
+      <Link href={ `/product/${product.slug}`}>
+        <CardMedia
           component="img"
           height="240"
           image= {process.env.NEXT_PUBLIC_SERVER_URL + product.images.data[0].attributes.url }
           alt="green iguana"
         />
+      </Link>
+          
         <CardContent>
         <Divider variant="middle" />
           <Typography gutterBottom variant="h6" component="div" style={{fontSize:'14px'}}>
@@ -185,7 +200,18 @@ console.log('products', products)
   
 
 
-</Grid>
+</Grid> 
+
+    </>
+    
+    }
+    
+
+
+
+
+
+     
 
 
 
@@ -194,9 +220,7 @@ console.log('products', products)
 
 
 
-<Box sx={{ width: 500 }}>
-   
-    </Box>
+
 
     </Container>
   )
