@@ -18,11 +18,16 @@
     "@mui/material": "^5.10.1",
     "@mui/styles": "^5.9.3",
     "apollo-boost": "^0.4.9",
+    "graphql": "^16.6.0",
+    "graphql-tag": "^2.12.6",
     "next": "12.2.5",
     "next-apollo": "^5.0.8",
+    "pure-react-carousel": "^1.29.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "react-helmet": "^6.1.0"
+    "react-helmet": "^6.1.0",
+    "react-image-lightbox": "^5.1.4",
+    "react-image-magnifiers": "^1.4.0"
   },
   "devDependencies": {
     "eslint": "8.22.0",
