@@ -178,7 +178,7 @@ console.log('products', products)
       <Link href={ `/product/${product.slug}`}>
         <CardMedia
           component="img"
-          height="240"
+          height="250"
           image= {process.env.NEXT_PUBLIC_SERVER_URL + product.images.data[0].attributes.url }
           alt="green iguana"
         />
