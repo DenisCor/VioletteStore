@@ -14,6 +14,7 @@ import Details from '../../src/components/product/Details'
 import Info from '../../src/components/product/Info'
 import CircularProgress from '@mui/material/CircularProgress';
 
+
 const Product = () => {
   const [singleProduct, setSingleProduct] = useState(null)
   const slug = useRouter().query.slug;
@@ -30,13 +31,18 @@ console.log('single product is: ', product)
     <>
       {!loading ? <Container maxWidth="lg" style={{ marginTop: '50px' }} >
         <Grid container spacing={2}>
-          <Grid item lg={6} xs={12}>
+
+          <Grid item lg={7} xs={12}>
             <Gallery product={product} />
           </Grid>
 
-          <Grid item lg={6} xs={12}>
+          <Grid item lg={5} xs={12}>
             <Details product={product} />
           </Grid>
+
+
+
+
           <Grid item lg={12} xs={12}>
             <Info product={product} />
           </Grid>

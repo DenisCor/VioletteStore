@@ -2134,6 +2134,11 @@
     "react-fast-compare" "^3.1.1"
     "react-side-effect" "^2.1.0"
 
+"react-image-gallery@^1.2.9":
+  "integrity" "sha512-19Wvp5MiDvS4jAmTWIfTRJR71Cnk5541/iBUW2VEjLI+uSd+HhQStVdIYy4PWYSxRa+G/97U2f7ac+WRkOGszg=="
+  "resolved" "https://registry.npmjs.org/react-image-gallery/-/react-image-gallery-1.2.9.tgz"
+  "version" "1.2.9"
+
 "react-image-lightbox@^5.1.4":
   "integrity" "sha512-kTiAODz091bgT7SlWNHab0LSMZAPJtlNWDGKv7pLlLY1krmf7FuG1zxE0wyPpeA8gPdwfr3cu6sPwZRqWsc3Eg=="
   "resolved" "https://registry.npmjs.org/react-image-lightbox/-/react-image-lightbox-5.1.4.tgz"

@@ -100,13 +100,10 @@ const useStyles = makeStyles({
   },
   menuItem:{
     fontFamily:'Poppins',
-    fontSize:'14px',
-    margin:'0.75rem 1.2rem'
-    },
-    link: {
-      color: 'white',
-      position: 'relative',
-  
+    fontSize:'13px',
+    margin:'0.5rem 1.2rem',
+    color:'#524069',
+    position: 'relative',
       '&:before': {
         content: "''",
         position: 'absolute',
@@ -115,15 +112,15 @@ const useStyles = makeStyles({
         bottom: '-3px',
         left: '50%',
         transform: 'translate(-50%,0%)',
-        backgroundColor: 'red',
+        backgroundColor: '#524069',
         visibility: 'hidden',
-        transition: 'all 0.3s ease-in-out',
+        transition: 'all 0.2s ease-in-out'
       },
       '&:hover:before': {
         visibility: 'visible',
         width: '100%',
       },
-    },
+    },   
 });
 
 
@@ -148,26 +145,28 @@ const Header = () => {
 
 
 
-  console.log('is MAtch', isMatch)
 
 
 
-
-
-
+  
   return (
-
     <AppBar position="static" sx={{ background: '#fff' }} >
       <Container >
         <Toolbar sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', paddingBottom: '3px' }} >
-
-    
           <Grid container spacing={1} sx={{ padding: '0px', margin: '0px' }}>
-          
+
+
+
+
+
+
+{/* //GRID 1 - LOGO */}
+
             <Grid item xs={1} sx={{ padding: '0px', margin: '0px' }}>
-              <Link href={"/"} passHref>
+            {!isMatch ? <Link href={"/"} passHref>
                 <Image src="/logo.png" width="60" height="60" style={{ cursor: 'pointer' }} />
-              </Link>
+              </Link> : <DrawerComp/>}
+              
             </Grid>
 
 
@@ -177,28 +176,21 @@ const Header = () => {
 
 
 
-
+{/* //GRID 1 - LINKS and SEARCH */}
 
             <Grid item xs={10} sx={{ padding: '10px 0 0 0', margin: '0px' }}>
-              <Box sx={{ display: 'flex', justifyContent: 'space-evenly', alignItems: 'start', padding: '0 2rem' }}>
+            {!isMatch    ?   <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'start', padding: '0 2rem', paddingLeft:'6rem' }}>
+              
                 <Box sx={{ paddingTop: '0.75rem' }}>
                   <Button
-                      disableElevation
-                      disableRipple
+                      style={{ backgroundColor: 'transparent' }}
                     className={classes.menuBtnStyle}
                     onClick={() => console.log('NEW ARRIVALS')}
                   >
-                  
                     NEW ARRIVALS
                   </Button>
-
-
-
-                  
-
-
-
                   <Button
+                    style={{ backgroundColor: 'transparent' }}
                     className={classes.menuBtnStyle}
                     name="Jewelry"
                     onClick={handleClick}
@@ -206,12 +198,6 @@ const Header = () => {
                   >
                     Jewelry
                   </Button>
-
-
-
-
-
-
                   <Menu
                   variant="menu"
                   className={classes.menuStyle}
@@ -223,18 +209,13 @@ const Header = () => {
                       'aria-labelledby': 'basic-button',
                     }}
                   >
-                    <MenuItem className={classes.menuItem} onClick={handleClose}>Earrings</MenuItem>
-                    <MenuItem className={classes.menuItem} onClick={handleClose}>Bracelets</MenuItem>
-                    <MenuItem className={classes.menuItem} onClick={handleClose}>Brooches</MenuItem>
-                    <MenuItem className={classes.menuItem} onClick={handleClose}>Jewelry Sets</MenuItem>
+                    <MenuItem className={classes.menuItem} onClick={handleClose}>EARRINGS</MenuItem>
+                    <MenuItem className={classes.menuItem} onClick={handleClose}>BRACELETS</MenuItem>
+                    <MenuItem className={classes.menuItem} onClick={handleClose}>BROOCHES</MenuItem>
+                    <MenuItem className={classes.menuItem} onClick={handleClose}>JEWELRY SETS</MenuItem>
                   </Menu>
-          
-
-
-
-
-
                   <Button
+                    style={{ backgroundColor: 'transparent' }}
                     name="Headpieces"
                     className={classes.menuBtnStyle}
                     onClick={handleClick}
@@ -242,8 +223,6 @@ const Header = () => {
                   >
                     Headpieces
                   </Button>
-
-                 
                   <Menu
                   variant="menu"
                   className={classes.menuStyle}
@@ -255,26 +234,20 @@ const Header = () => {
                       'aria-labelledby': 'basic-button',
                     }}
                   >
-                    <MenuItem className={classes.menuItem} onClick={handleClose}>Earrings</MenuItem>
-                    <MenuItem className={classes.menuItem} onClick={handleClose}>Bracelets</MenuItem>
-                    <MenuItem className={classes.menuItem} onClick={handleClose}>Brooches</MenuItem>
-                    <MenuItem className={classes.menuItem} onClick={handleClose}>Jewelry Sets</MenuItem>
+                   <MenuItem style={{ backgroundColor: 'transparent' }} className={classes.menuItem} onClick={handleClose}>EARRINGS</MenuItem>
+                    <MenuItem style={{ backgroundColor: 'transparent' }} className={classes.menuItem} onClick={handleClose}>BRACELETS</MenuItem>
+                    <MenuItem style={{ backgroundColor: 'transparent' }} className={classes.menuItem} onClick={handleClose}>BROOCHES</MenuItem>
+                    <MenuItem style={{ backgroundColor: 'transparent' }} className={classes.menuItem} onClick={handleClose}>JEWELRY SETS</MenuItem>
                   </Menu>
-
-
-
-
-
-
-
-
                   <Button
+                    style={{ backgroundColor: 'transparent' }}
                     className={classes.menuBtnStyle}
                     onClick={() => console.log('SALE')}
                   >
                     SALE
                   </Button>
-                  <Button
+                  <Button 
+                    style={{ backgroundColor: 'transparent' }}
                     className={classes.menuBtnStyle}
                     onClick={() => console.log('contact')}
                   >
@@ -291,22 +264,22 @@ const Header = () => {
                       inputProps={{ 'aria-label': 'search' }}
                       sx={{ fontFamily: 'Assistant' }}
                       style={{ color: '#524069', border: '1px solid #524069', padding: '0px', fontFamily: 'Poppins', fontSize: '14px' }}
-
                     />
                   </Search>
                 </Box>
-              </Box>
+              </Box> : ''}
+              
             </Grid>
 
 
 
-
+{/* //GRID 1 - WISHLIST and CART ICON */}
 
             <Grid item xs={1} sx={{ padding: '0px', margin: '0px' }} >
-              <Box sx={{ paddingTop: '10px' }} >
+              <Box sx={{ paddingTop: '10px', display:'flex', justifyContent:'end' }} >
                 <IconButton
                   size="small"
-                  style={{ color: '#524069', padding: '0', margin: '2px' }}
+                  style={{ color: '#524069', margin:'0'}}
                   color="inherit"
                   aria-label="open drawer"
                   sx={{ mr: 2 }}

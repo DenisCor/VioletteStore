@@ -71,6 +71,7 @@ query GetProductsBySlug($slug: String!) {
               url
               width
               height
+              formats
             }
           }
         }     

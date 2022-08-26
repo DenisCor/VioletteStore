@@ -48,7 +48,7 @@ const Details = ({ product }) => {
   console.log('product  ssss', product)
   //address product.name error wich shows up sometimes
   return (
-    <Paper elevation="6" sx={{padding:'1rem', minHeight:'31rem'}}>
+    <Paper elevation="6" sx={{padding:'1rem', minHeight:'36.3rem'}}>
       <Box>
         <Typography variant="h6" sx={{padding:'0.75rem 0'}}>
           {product.name}
