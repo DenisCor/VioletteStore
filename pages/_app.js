@@ -7,6 +7,7 @@ import {ApolloProvider} from '@apollo/client'
 import apolloClient from "../server/apollo-client";
 import '../styles/globals.css'
 
+
 const Violette = ({ Component, pageProps }) => {
 
 
@@ -16,7 +17,18 @@ const Violette = ({ Component, pageProps }) => {
       primary: {
       main:'#524069',
     },
-  }});
+  },
+  typography: {
+    fontFamily: [
+      'Poppins',
+      // 'Roboto',
+      // '"Helvetica Neue"',
+      // 'Arial',
+      // 'sans-serif'
+    ].join(','),
+  },
+
+});
 
 
   return (
@@ -25,6 +37,7 @@ const Violette = ({ Component, pageProps }) => {
       <Helmet>
         <title>Violette Store</title>
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
+        <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet" />
         <meta name="keywords" content="Molla React Template" />
         <meta name="description" content=" VioletteStore, Scotland UK - Shop Wedding Accessories & Jewellery, Gift Ideas and more"
         />

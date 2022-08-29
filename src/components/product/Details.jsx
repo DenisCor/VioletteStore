@@ -44,10 +44,13 @@ const Details = ({ product }) => {
   const handleChange = (event) => {
     setSelectedValue(event.target.value);
   };
+
+  console.log('product  ssss', product)
+  //address product.name error wich shows up sometimes
   return (
-    <Paper sx={{ height: '500px' }}>
-      <Box sx={{ padding: '2rem'}}>
-        <Typography variant="h6">
+    <Paper elevation="6" sx={{padding:'1rem', minHeight:'36.3rem'}}>
+      <Box>
+        <Typography variant="h6" sx={{padding:'0.75rem 0'}}>
           {product.name}
         </Typography>
         <Divider/>
@@ -83,7 +86,7 @@ const Details = ({ product }) => {
     </div>
    
     <Box style={{padding:'20px 0px'}}>
-      <ButtonGroup
+      Qty: <ButtonGroup
       disableElevation
       variant="outlined"
       aria-label="Disabled elevation buttons"
@@ -91,16 +94,18 @@ const Details = ({ product }) => {
       sx={{padding:0}}
     >
       <Button disableRipple name="remove" onClick={(e) => handleQty(e)}>-</Button>
-      {qty}
+      <Typography sx={{fontSize:'0.9rem'}} variant="subtitle2">{qty}</Typography>
       <Button disableRipple name="add" onClick={(e) => handleQty(e)}>+</Button>
     </ButtonGroup>
     </Box>
 
     <Divider/>
     <Box style={{padding:'20px 0'}}>
-      <Button variant="contained" startIcon={ <AddShoppingCartIcon fontSize="small"/>}>ADD TO CART</Button>
+      <Button variant="contained" startIcon={ <AddShoppingCartIcon fontSize="small"/>}>
+      <Typography sx={{fontSize:'10px'}} variant="subtitle2">Add To Cart</Typography>
+      </Button>
     </Box>
-   
+    Category: {product.category.data.attributes.name}
       </Box>
 
 
