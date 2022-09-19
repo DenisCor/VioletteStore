@@ -3,7 +3,8 @@ import gql from 'graphql-tag';
 export const GET_PRODUCTS = gql`
 query {
     products {
-     data{
+     data{ 
+         id
        attributes {
          name
          slug

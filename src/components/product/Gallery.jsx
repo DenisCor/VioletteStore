@@ -100,7 +100,7 @@ const Gallery = ({ product }) => {
 
   return (
     <>
-      <Paper elevation="6" sx={{ padding: '0.5rem' }}>
+      <Paper elevation={6} sx={{ padding: '0.5rem' }}>
         <Grid container >
           <Grid item xs={12}>
             <Stack spacing={2} sx={{ padding: '1rem' }}>
@@ -113,9 +113,9 @@ const Gallery = ({ product }) => {
             <Card style={{ position: 'relative', display: 'flex' }}>
               <ImageGallery items={images} showFullscreenButton={false}  thumbnailPosition='left' showPlayButton={false} showBullets={false} disableThumbnailScroll={true}/>
               <Box style={{ position: 'absolute', bottom: 8, right: 8, zIndex: 1000 }}>
-                <IconButton variant="outlined" size="medium" color="primary" aria-label="expand image" sx={{ backgroundColor: '#fff', boxShadow: '0px 0px 15px -2px #524069' }}>
+                {/* <IconButton variant="outlined" size="medium" color="primary" aria-label="expand image" sx={{ backgroundColor: '#fff', boxShadow: '0px 0px 15px -2px #524069' }}>
                   <OpenWithIcon onClick={openLightBox} />
-                </IconButton>
+                </IconButton> */}
               </Box>
             </Card>
           </Grid>

@@ -12,8 +12,10 @@ import Image from "next/image"
 import Grid from '@mui/material/Grid';
 import { useTheme } from '@mui/material/styles'
 import { makeStyles } from '@mui/styles';
-import DrawerComp from '../components/Drawer'
+import DrawerComp from '../mobile/Drawer'
 import Divider from '@mui/material/Divider';
+
+import {useSelector} from 'react-redux'
 
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
@@ -73,54 +75,54 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 
 const useStyles = makeStyles({
-  menuBtnStyle:{
-    color: '#524069',
-    fontSize: '0.8rem' ,
-      position: 'relative',
-      '&:before': {
-        content: "''",
-        position: 'absolute',
-        width: '0',
-        height: '2px',
-        bottom: '-3px',
-        left: '50%',
-        transform: 'translate(-50%,0%)',
-        backgroundColor: '#524069',
-        visibility: 'hidden',
-        transition: 'all 0.3s ease-in-out',
-      },
-      '&:hover:before': {
-        visibility: 'visible',
-        width: '100%',
-      },
-  },
-  menuStyle:{
-  fontFamily:'Poppins',
-  color:'red'
-  },
-  menuItem:{
-    fontFamily:'Poppins',
-    fontSize:'13px',
-    margin:'0.5rem 1.2rem',
-    color:'#524069',
-    position: 'relative',
-      '&:before': {
-        content: "''",
-        position: 'absolute',
-        width: '0',
-        height: '2px',
-        bottom: '-3px',
-        left: '50%',
-        transform: 'translate(-50%,0%)',
-        backgroundColor: '#524069',
-        visibility: 'hidden',
-        transition: 'all 0.2s ease-in-out'
-      },
-      '&:hover:before': {
-        visibility: 'visible',
-        width: '100%',
-      },
-    },   
+  // menuBtnStyle:{
+  //   color: '#524069',
+  //   fontSize: '0.8rem' ,
+  //     position: 'relative',
+  //     '&:before': {
+  //       content: "''",
+  //       position: 'absolute',
+  //       width: '0',
+  //       height: '2px',
+  //       bottom: '-3px',
+  //       left: '50%',
+  //       transform: 'translate(-50%,0%)',
+  //       backgroundColor: '#524069',
+  //       visibility: 'hidden',
+  //       transition: 'all 0.3s ease-in-out',
+  //     },
+  //     '&:hover:before': {
+  //       visibility: 'visible',
+  //       width: '100%',
+  //     },
+  // },
+  // menuStyle:{
+  // fontFamily:'Poppins',
+  // color:'red'
+  // },
+  // menuItem:{
+  //   fontFamily:'Poppins',
+  //   fontSize:'13px',
+  //   margin:'0.5rem 1.2rem',
+  //   color:'#524069',
+  //   position: 'relative',
+  //     '&:before': {
+  //       content: "''",
+  //       position: 'absolute',
+  //       width: '0',
+  //       height: '2px',
+  //       bottom: '-3px',
+  //       left: '50%',
+  //       transform: 'translate(-50%,0%)',
+  //       backgroundColor: '#524069',
+  //       visibility: 'hidden',
+  //       transition: 'all 0.2s ease-in-out'
+  //     },
+  //     '&:hover:before': {
+  //       visibility: 'visible',
+  //       width: '100%',
+  //     },
+  //   },   
 });
 
 
@@ -129,6 +131,10 @@ const useStyles = makeStyles({
 
 
 const Header = () => {
+  const {amount, total, cartItems} = useSelector((state) => state.cart);
+
+  console.log('amount from Redux Store', amount)
+
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
@@ -164,7 +170,10 @@ const Header = () => {
 
             <Grid item xs={1} sx={{ padding: '0px', margin: '0px' }}>
             {!isMatch ? <Link href={"/"} passHref>
+            <a>
                 <Image src="/logo.png" width="60" height="60" style={{ cursor: 'pointer' }} />
+            </a>
+              
               </Link> : <DrawerComp/>}
               
             </Grid>
@@ -189,6 +198,8 @@ const Header = () => {
                   >
                     NEW ARRIVALS
                   </Button>
+
+                  
                   <Button
                     style={{ backgroundColor: 'transparent' }}
                     className={classes.menuBtnStyle}
@@ -209,10 +220,10 @@ const Header = () => {
                       'aria-labelledby': 'basic-button',
                     }}
                   >
-                    <MenuItem className={classes.menuItem} onClick={handleClose}>EARRINGS</MenuItem>
-                    <MenuItem className={classes.menuItem} onClick={handleClose}>BRACELETS</MenuItem>
-                    <MenuItem className={classes.menuItem} onClick={handleClose}>BROOCHES</MenuItem>
-                    <MenuItem className={classes.menuItem} onClick={handleClose}>JEWELRY SETS</MenuItem>
+                    <MenuItem onClick={handleClose}>EARRINGS</MenuItem>
+                    <MenuItem  onClick={handleClose}>BRACELETS</MenuItem>
+                    <MenuItem onClick={handleClose}>BROOCHES</MenuItem>
+                    <MenuItem onClick={handleClose}>JEWELRY SETS</MenuItem>
                   </Menu>
                   <Button
                     style={{ backgroundColor: 'transparent' }}
@@ -234,10 +245,10 @@ const Header = () => {
                       'aria-labelledby': 'basic-button',
                     }}
                   >
-                   <MenuItem style={{ backgroundColor: 'transparent' }} className={classes.menuItem} onClick={handleClose}>EARRINGS</MenuItem>
-                    <MenuItem style={{ backgroundColor: 'transparent' }} className={classes.menuItem} onClick={handleClose}>BRACELETS</MenuItem>
-                    <MenuItem style={{ backgroundColor: 'transparent' }} className={classes.menuItem} onClick={handleClose}>BROOCHES</MenuItem>
-                    <MenuItem style={{ backgroundColor: 'transparent' }} className={classes.menuItem} onClick={handleClose}>JEWELRY SETS</MenuItem>
+                   <MenuItem style={{ backgroundColor: 'transparent' }} onClick={handleClose}>EARRINGS</MenuItem>
+                    <MenuItem style={{ backgroundColor: 'transparent' }}  onClick={handleClose}>BRACELETS</MenuItem>
+                    <MenuItem style={{ backgroundColor: 'transparent' }}  onClick={handleClose}>BROOCHES</MenuItem>
+                    <MenuItem style={{ backgroundColor: 'transparent' }} onClick={handleClose}>JEWELRY SETS</MenuItem>
                   </Menu>
                   <Button
                     style={{ backgroundColor: 'transparent' }}
@@ -246,6 +257,9 @@ const Header = () => {
                   >
                     SALE
                   </Button>
+                 
+
+                  <Link href={"/contact"} passHref>
                   <Button 
                     style={{ backgroundColor: 'transparent' }}
                     className={classes.menuBtnStyle}
@@ -253,6 +267,9 @@ const Header = () => {
                   >
                     CONTACT
                   </Button>
+                  </Link>
+
+
                 </Box>
                 <Box sx={{ paddingTop: '0.6rem' }}>
                   <Search>
@@ -296,7 +313,7 @@ const Header = () => {
                   sx={{ mr: 2 }}
                 >
                   <Link href={"/shop/checkout"} passHref>
-                    <StyledBadge badgeContent={2} >
+                    <StyledBadge badgeContent={amount} >
                       <ShoppingCartIcon />
                     </StyledBadge>
                   </Link>
