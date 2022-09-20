@@ -34,11 +34,11 @@ const useStyles = makeStyles({
   return (
     <Card sx={{ padding: '0.5rem', position: 'relative' }} className={classes.root}>
       <CardActionArea>
-        <Link href={`/product/${product.slug}`}>
+        <Link href={`/product/${product.attributes.slug}`}>
           <CardMedia
             component="img"
             height="250"
-            image={process.env.NEXT_PUBLIC_SERVER_URL + product.images.data[0].attributes.url}
+            image={process.env.NEXT_PUBLIC_SERVER_URL + product.attributes.images.data[0].attributes.url}
             alt="green iguana"
           />
         </Link>
@@ -50,10 +50,10 @@ const useStyles = makeStyles({
         <CardContent>
           <Divider />
           <Typography gutterBottom variant="h6" component="div" sx={{ fontSize: '16px', fontWeight: '500', color: '#524069' }}>
-            {product.name}
+            {product.attributes.name}
           </Typography>
           <Typography variant="body2" color="text.secondary" sx={{ fontSize: '14px', fontWeight: '500', color: '#524069' }}>
-            Price: £{product.price.toFixed(2)}
+            Price: £{product.attributes.price.toFixed(2)}
           </Typography>
         </CardContent>
       </CardActionArea>

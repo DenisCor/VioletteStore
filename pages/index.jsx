@@ -69,13 +69,13 @@ const Home = () => {
 
   useEffect(() => {
     if (data) {
-      const resProducts = data.products.data.map(each => each.attributes)
-      setProducts(resProducts);
+      setProducts(data.products.data);
     }
   }, [data])
-  console.log('products', products)
 
-  console.log('data', data)
+  console.log('%c PRODUCTS ', 'background: #222; color: #bada55', products);
+
+
 
 
 
@@ -158,7 +158,7 @@ const Home = () => {
             <Filters />
             <Grid container spacing={2}>
               {products.map((product) => (
-                <React.Fragment key={product.name} >
+                <React.Fragment key={product.attributes.name} >
                   <Grid item lg={3} md={4} sm={6} xs={12} sx={gridStyle}>
                     <CardProduct product={product} />
                   </Grid>

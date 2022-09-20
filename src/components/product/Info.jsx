@@ -55,7 +55,7 @@ function a11yProps(index) {
         </Tabs>
       </Box>
       <TabPanel value={value} index={0}>
-        {product.long_description}
+        {product.attributes.long_description}
       </TabPanel>
       <TabPanel value={value} index={1}>
         Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. Nullam malesuada erat ut turpis. Suspendisse urna viverra non, semper suscipit, posuere a, pede. Donec nec justo eget felis facilisis fermentum. Aliquam porttitor mauris sit amet orci.

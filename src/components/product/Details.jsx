@@ -50,15 +50,15 @@ const Details = ({ product,onCartClick }) => {
     <Paper elevation={6} sx={{ padding: '1rem', minHeight: '38.1rem' }}>
       <Box>
         <Typography variant="h6" sx={{ padding: '0.5rem 0' }}>
-          {product.name}
+          {product.attributes.name}
         </Typography>
         <Divider />
         <Typography variant="h5" style={{ padding: '10px 0' }}>
-          £{product.price.toFixed(2)}
+          £{product.attributes.price.toFixed(2)}
         </Typography>
 
         <Typography variant="body1" sx={{ padding: '10px 0', fontSize: '14px' }}>
-          {product.short_description}
+          {product.attributes.short_description}
         </Typography>
         <Box style={{ padding: '10px 0' }}>
           Colour:
@@ -114,7 +114,7 @@ const Details = ({ product,onCartClick }) => {
           </Box>
         </Box>
         <Divider />
-        <Typography sx={{ paddingTop: '1rem', fontSize: '0.9rem' }}>Category: {product.category.data.attributes.name}</Typography>
+        <Typography sx={{ paddingTop: '1rem', fontSize: '0.9rem' }}>Category: {product.attributes.category.data.attributes.name}</Typography>
         <Box sx={{display:'flex', alignItems:'center', paddingTop:'1rem'}}>
           <LocalShippingIcon fontSize="small" color="action"/>
         <Typography sx={{ fontSize: '0.9rem', paddingLeft:'5px' }}>FREE UK SHIPPING</Typography>

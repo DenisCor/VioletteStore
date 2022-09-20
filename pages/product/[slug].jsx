@@ -28,8 +28,10 @@ const Product = () => {
   const { data, loading, error } = useQuery( GET_PRODUCT, { variables: { slug } } );
 
 
-  const product = data && data.products.data[0].attributes;
-  console.log('single product is: ', product)
+  const product = data && data.products.data[0];
+  console.log('single product data: ', data)
+
+  console.log('%c SINGLE PRODUCT ', 'background: #222; color: #fe4d01', product);
 
 
 
