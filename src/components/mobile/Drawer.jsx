@@ -14,11 +14,6 @@ import DraftsIcon from '@mui/icons-material/Drafts';
 const DrawerComp = () => {
   const [open, setOpen] = useState(false)
 
-
-
-
-
-
   return (
     <>
       <Drawer open={open} onClose={() => setOpen(!open)}>

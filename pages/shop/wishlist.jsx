@@ -1,8 +1,9 @@
 import React from 'react'
+import Container from '@mui/material/Container';
 
 const wishlist = () => {
   return (
-    <div>wishlist</div>
+    <Container sx={{ minHeight:'100vh'}}>wishlist</Container>
   )
 }
 

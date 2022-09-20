@@ -17,7 +17,7 @@ import "react-image-lightbox/style.css";
 
 const Gallery = ({ product }) => {
 
-  console.log('product in GALLERY', product)
+ 
   const [isOpen, setIsOpen] = useState(false);
   const [photoIndex, setPhotoIndex] = useState(0);
   const [key, setKey] = useState(false);
@@ -32,11 +32,11 @@ const Gallery = ({ product }) => {
   useEffect(() => { setTimeout(() => setKey(key + 1)); }, [isOpen]);
 
   function moveNextPhoto() {
-    setPhotoIndex((photoIndex + 1) % product.images.data.length);
+    setPhotoIndex((photoIndex + 1) % product.attributes.images.data.length);
   }
 
   function movePrevPhoto() {
-    setPhotoIndex((photoIndex + product.images.data.length - 1) % product.images.data.length);
+    setPhotoIndex((photoIndex + product.attributes.images.data.length - 1) % product.attributes.images.data.length);
   }
 
 
@@ -86,21 +86,21 @@ const Gallery = ({ product }) => {
       href="/material-ui/getting-started/installation/"
       onClick={handleClick}
     >
-      {product.category.data.attributes.name}
+      {product.attributes.category.data.attributes.name}
     </Link>,
     <Typography key="3" color="text.primary">
-      {product.name}
+      {product.attributes.name}
     </Typography>,
   ];
 
-   const images = product.images.data.map(each => each.attributes).map(each => ({
+   const images = product.attributes.images.data.map(each => each.attributes).map(each => ({
     original: process.env.NEXT_PUBLIC_SERVER_URL + each.url,
     thumbnail: process.env.NEXT_PUBLIC_SERVER_URL + each.formats.thumbnail.url
   }))
 
   return (
     <>
-      <Paper elevation="6" sx={{ padding: '0.5rem' }}>
+      <Paper elevation={6} sx={{ padding: '0.5rem' }}>
         <Grid container >
           <Grid item xs={12}>
             <Stack spacing={2} sx={{ padding: '1rem' }}>
@@ -113,9 +113,9 @@ const Gallery = ({ product }) => {
             <Card style={{ position: 'relative', display: 'flex' }}>
               <ImageGallery items={images} showFullscreenButton={false}  thumbnailPosition='left' showPlayButton={false} showBullets={false} disableThumbnailScroll={true}/>
               <Box style={{ position: 'absolute', bottom: 8, right: 8, zIndex: 1000 }}>
-                <IconButton variant="outlined" size="medium" color="primary" aria-label="expand image" sx={{ backgroundColor: '#fff', boxShadow: '0px 0px 15px -2px #524069' }}>
+                {/* <IconButton variant="outlined" size="medium" color="primary" aria-label="expand image" sx={{ backgroundColor: '#fff', boxShadow: '0px 0px 15px -2px #524069' }}>
                   <OpenWithIcon onClick={openLightBox} />
-                </IconButton>
+                </IconButton> */}
               </Box>
             </Card>
           </Grid>
@@ -127,9 +127,9 @@ const Gallery = ({ product }) => {
         (isOpen) ?
           <LightBox
             key={key}
-            mainSrc={"http://localhost:1337" + product.images.data[photoIndex].attributes.url}
-            nextSrc={"http://localhost:1337" + product.images.data[(photoIndex + 1) % product.images.data.length].attributes.url}
-            prevSrc={"http://localhost:1337" + product.images.data[(photoIndex + product.images.data.length - 1) % product.images.data.length].attributes.url}
+            mainSrc={"http://localhost:1337" + product.attributes.images.data[photoIndex].attributes.url}
+            nextSrc={"http://localhost:1337" + product.attributes.images.data[(photoIndex + 1) % product.attributes.images.data.length].attributes.url}
+            prevSrc={"http://localhost:1337" + product.attributes.images.data[(photoIndex + product.attributes.images.data.length - 1) % product.attributes.images.data.length].attributes.url}
             onCloseRequest={closeLightBox}
             onMovePrevRequest={moveNextPhoto}
             onMoveNextRequest={movePrevPhoto}
