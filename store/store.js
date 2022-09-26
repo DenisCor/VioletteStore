@@ -1,5 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit'
 import cartReducer from './features/cart/cartSlice'
+import wishlistReducer from './features/wishlist/wishlistSlice'
 import storage from 'redux-persist/lib/storage';
 import {
   persistStore,
@@ -22,6 +23,7 @@ const persistedReducer = persistReducer(persistConfig, cartReducer)
 export const store = configureStore({
   reducer: {
     cart: cartReducer,
+    wishlist: wishlistReducer,
   },
 })
 

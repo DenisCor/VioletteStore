@@ -18,6 +18,7 @@ import { colors } from '../../../utils/constants'
 
 
 import { addToCart, removeFromCart } from '../../../store/features/cart/cartSlice'
+import {addToWishlist} from '../../../store/features/wishlist/wishlistSlice'
 import { useDispatch } from 'react-redux';
 
 
@@ -76,9 +77,10 @@ const BpCheckedIcon = styled('span')(({ theme, color }) => ({
   // },
 }));
 
-const Details = ({ product, onCartClick, handleQty, setQty, qty }) => {
+const Details = ({ product, onCartClick, onWishlistClick, handleQty, setQty, qty }) => {
   const dispatch = useDispatch();
-  const [selectedColor, setSelectedColor] = useState()
+
+ const [selectedColor, setSelectedColor] = useState()
 
 
 
@@ -178,16 +180,17 @@ console.log('selectedColor',selectedColor)
 
         <Divider sx={{ paddingTop: '1rem' }} />
 
-        <Box style={{ padding: '20px 0', display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginRight: '6rem' }}>
+        <Box style={{ padding: '20px 0', display: 'flex', alignItems: 'center', justifyContent: 'space-between'}}>
           <Button onClick={() => onCartClick()} variant="outlined" startIcon={<AddShoppingCartIcon fontSize="small" />}>
             <Typography sx={{ fontSize: '0.8rem', padding: '0.3rem 1.4rem' }} variant="subtitle2">Add To Cart</Typography>
           </Button>
-
-
-          <Box sx={{ display: 'flex', alignItems: 'center' }}>
-            <FavoriteBorderIcon sx={{ fontSize: '0.8rem', marginRight: '5px' }} />
-            <Typography sx={{ fontSize: '0.9rem' }} variant="subtitle2">Add to wishlist</Typography>
+          <Box sx={{marginRight:'5rem'}}>
+          <ButtonGroup sx={{ display: 'flex', alignItems: 'center' }} size="small" onClick={() => onWishlistClick()}>
+            <FavoriteBorderIcon sx={{ fontSize: '1rem', marginRight: '5px' }} />
+            <Typography sx={{ fontSize: '0.8rem' }} variant="subtitle2">Add to wishlist</Typography>
+          </ButtonGroup>
           </Box>
+
         </Box>
         <Divider />
         <Typography sx={{ paddingTop: '1rem', fontSize: '0.9rem' }}>Category: {product.attributes.category.data.attributes.name}</Typography>

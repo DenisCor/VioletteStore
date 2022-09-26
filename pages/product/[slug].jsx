@@ -16,6 +16,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 
 
 import {addToCart, removeFromCart} from '../../store/features/cart/cartSlice'
+import {addToWishlist} from '../../store/features/wishlist/wishlistSlice'
 import { useDispatch } from 'react-redux';
 
 
@@ -50,12 +51,14 @@ const Product = () => {
 
 
   const onCartClick = () => {
-    // e.preventDefault();
-    // cartAction.addToCart( product );
     dispatch(addToCart({product, qty}))
-
-    console.log('onCartClick')
 }
+
+const onWishlistClick = () => {
+  dispatch(addToWishlist({product, qty}))
+}
+
+
 //===========================STYLES==============================
 
   const boxStyle = {
@@ -80,7 +83,7 @@ const Product = () => {
           </Grid>
 
           <Grid item lg={5} xs={12}>
-            <Details onCartClick={onCartClick} handleQty={handleQty} setQty={setQty} qty={qty} product={product} />
+            <Details onCartClick={onCartClick} onWishlistClick={onWishlistClick} handleQty={handleQty} setQty={setQty} qty={qty} product={product} />
           </Grid>
           <Grid item lg={12} xs={12}>
             <Info product={product} />
