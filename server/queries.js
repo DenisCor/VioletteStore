@@ -26,7 +26,6 @@ query {
              }
            }
          }
-         stock
          images{
            data{
              attributes{
@@ -66,7 +65,6 @@ query GetProductsBySlug($slug: String!) {
             }
           }
         }
-        stock
        images{
           data{
             attributes{

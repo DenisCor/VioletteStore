@@ -12,6 +12,7 @@ import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import Slider from '@mui/material/Slider';
 import { categoryNames, sortByNames } from '../../../utils/constants';
+import {colors} from '../../../utils/constants'
 
 
  const Filters = () => {
@@ -63,15 +64,19 @@ const valuetext = (value) => {
           <Typography>
             Colour:
           </Typography>
-          <RadioGroup
-            aria-labelledby="demo-radio-buttons-group-label"
-            defaultValue="female"
-            name="radio-buttons-group"
-          >
-            <FormControlLabel value="female" control={<Radio size="small" style={{ width: "20px", padding: 0, marginLeft: '0.5rem' }} />} label={<Typography sx={{ paddingLeft: "5px" }} variant="body2">Silver</Typography>} />
-            <FormControlLabel value="male" control={<Radio size="small" style={{ width: "20px", padding: 0, marginLeft: '0.5rem' }} />} label={<Typography sx={{ paddingLeft: "5px" }} variant="body2">Gold</Typography>} />
-            <FormControlLabel value="other" control={<Radio size="small" style={{ width: "20px", padding: 0, marginLeft: '0.5rem' }} />} label={<Typography sx={{ paddingLeft: "5px" }} variant="body2">Rose gold</Typography>} />
-          </RadioGroup>
+    
+              <RadioGroup
+                aria-labelledby="demo-radio-buttons-group-label"
+                defaultValue="female"
+                name="radio-buttons-group"
+              >
+                {colors.map(each => (
+                  <>
+                         <FormControlLabel value="female" control={<Radio size="small" style={{ width: "20px", padding: 0, marginLeft: '0.5rem' }} />}
+                    label={<Typography sx={{ paddingLeft: "5px" }} variant="body2">{each.name}</Typography>} />
+                  </>
+                ))}
+              </RadioGroup>
         </Grid>
         <Grid item lg={3} xs={12}>
           <Typography>

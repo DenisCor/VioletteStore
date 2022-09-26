@@ -59,11 +59,19 @@ import CardProduct from '../src/components/card/CardProduct';
 
 
 
-
+const useStyles = makeStyles({
+  root:{
+ 
+     border:'1px solid pink'
+  
+  }
+  
+});
 
 
 
 const Home = () => {
+  const classes = useStyles();
   const { data, error, loading } = useQuery(GET_PRODUCTS)
   const [products, setProducts] = useState([]);
 
@@ -90,7 +98,7 @@ const Home = () => {
   const bannerBoxStyle = {
     padding: 0,
     margin: 0,
-    maxWidth: '100vw',
+    maxWidth: '100%',
     height: 'auto'
   };
   const bannerTypoStyle = {
@@ -115,7 +123,8 @@ const Home = () => {
   //----------------------
   const mainContainerStyle = {
     marginTop: '0.5rem',
-    minHeight: '100vh'
+    minHeight: '100vh',
+    padding:'0px'
   };
   const mainBoxStyle = {
     display: 'flex',
@@ -123,10 +132,7 @@ const Home = () => {
     alignContent: 'center',
     marginTop: '400px'
   };
-  const gridStyle={
-    display: 'flex',
-   justifyContent: 'center' 
-  };
+
   const loadMoreBoxStyle = {
     width: '100%',
     display: 'flex',
@@ -138,6 +144,8 @@ const Home = () => {
     padding: '0.3rem 1.4rem'
   };
 
+
+  
 
   //================================================================
 
@@ -156,11 +164,11 @@ const Home = () => {
         </Box> :
           <>
             <Filters />
-            <Grid container spacing={2}>
+            <Grid container spacing={4} columnSpacing={4.5}>
               {products.map((product) => (
-                <React.Fragment key={product.attributes.name} >
-                  <Grid item lg={3} md={4} sm={6} xs={12} sx={gridStyle}>
-                    <CardProduct product={product} />
+                <React.Fragment key={product.attributes.name}>
+                  <Grid item xl={3} lg={3} md={3} sm={6} xs={12}>
+                    <CardProduct product={product}/>
                   </Grid>
                 </React.Fragment>))}
               <Box sx={loadMoreBoxStyle}>

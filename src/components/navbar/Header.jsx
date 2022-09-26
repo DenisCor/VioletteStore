@@ -75,54 +75,54 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 
 const useStyles = makeStyles({
-  // menuBtnStyle:{
-  //   color: '#524069',
-  //   fontSize: '0.8rem' ,
-  //     position: 'relative',
-  //     '&:before': {
-  //       content: "''",
-  //       position: 'absolute',
-  //       width: '0',
-  //       height: '2px',
-  //       bottom: '-3px',
-  //       left: '50%',
-  //       transform: 'translate(-50%,0%)',
-  //       backgroundColor: '#524069',
-  //       visibility: 'hidden',
-  //       transition: 'all 0.3s ease-in-out',
-  //     },
-  //     '&:hover:before': {
-  //       visibility: 'visible',
-  //       width: '100%',
-  //     },
-  // },
-  // menuStyle:{
-  // fontFamily:'Poppins',
-  // color:'red'
-  // },
-  // menuItem:{
-  //   fontFamily:'Poppins',
-  //   fontSize:'13px',
-  //   margin:'0.5rem 1.2rem',
-  //   color:'#524069',
-  //   position: 'relative',
-  //     '&:before': {
-  //       content: "''",
-  //       position: 'absolute',
-  //       width: '0',
-  //       height: '2px',
-  //       bottom: '-3px',
-  //       left: '50%',
-  //       transform: 'translate(-50%,0%)',
-  //       backgroundColor: '#524069',
-  //       visibility: 'hidden',
-  //       transition: 'all 0.2s ease-in-out'
-  //     },
-  //     '&:hover:before': {
-  //       visibility: 'visible',
-  //       width: '100%',
-  //     },
-  //   },   
+  menuBtnStyle:{
+    color: '#524069',
+    fontSize: '0.8rem' ,
+      position: 'relative',
+      '&:before': {
+        content: "''",
+        position: 'absolute',
+        width: '0',
+        height: '2px',
+        bottom: '-3px',
+        left: '50%',
+        transform: 'translate(-50%,0%)',
+        backgroundColor: '#524069',
+        visibility: 'hidden',
+        transition: 'all 0.3s ease-in-out',
+      },
+      '&:hover:before': {
+        visibility: 'visible',
+        width: '100%',
+      },
+  },
+  menuStyle:{
+  fontFamily:'Poppins',
+  color:'red'
+  },
+  menuItem:{
+    fontFamily:'Poppins',
+    fontSize:'13px',
+    margin:'0.5rem 1.2rem',
+    color:'#524069',
+    position: 'relative',
+      '&:before': {
+        content: "''",
+        position: 'absolute',
+        width: '0',
+        height: '2px',
+        bottom: '-3px',
+        left: '50%',
+        transform: 'translate(-50%,0%)',
+        backgroundColor: '#524069',
+        visibility: 'hidden',
+        transition: 'all 0.2s ease-in-out'
+      },
+      '&:hover:before': {
+        visibility: 'visible',
+        width: '100%',
+      },
+    },   
 });
 
 
@@ -131,9 +131,12 @@ const useStyles = makeStyles({
 
 
 const Header = () => {
-  const {amount, total, cartItems} = useSelector((state) => state.cart);
+  const {cartData, totalQty, totalAmount} = useSelector((state) => state.cart);
 
-  console.log('amount from Redux Store', amount)
+  console.log('++++++++++++ cartData ++++++++++++', cartData)
+  console.log('++++++++++++ totalQty ++++++++++++', totalQty)
+  console.log('++++++++++++ totalAmount ++++++++++++', totalAmount)
+
 
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -156,27 +159,21 @@ const Header = () => {
 
   
   return (
-    <AppBar position="static" sx={{ background: '#fff' }} >
-      <Container >
-        <Toolbar sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', paddingBottom: '3px' }} >
-          <Grid container spacing={1} sx={{ padding: '0px', margin: '0px' }}>
+    <AppBar position="static" sx={{ background: '#fff'}} >
+     
+        <Toolbar>
+          
 
+<Container maxWidth="lg" sx={{display:'flex', justifyContent:'space-between', alignContent:'center'}}>
 
-
-
-
-
-{/* //GRID 1 - LOGO */}
-
-            <Grid item xs={1} sx={{ padding: '0px', margin: '0px' }}>
             {!isMatch ? <Link href={"/"} passHref>
             <a>
-                <Image src="/logo.png" width="60" height="60" style={{ cursor: 'pointer' }} />
+                <Image src="/logo.png" width="50" height="50" style={{ cursor: 'pointer' }} />
             </a>
               
               </Link> : <DrawerComp/>}
               
-            </Grid>
+     
 
 
 
@@ -185,12 +182,11 @@ const Header = () => {
 
 
 
-{/* //GRID 1 - LINKS and SEARCH */}
 
-            <Grid item xs={10} sx={{ padding: '10px 0 0 0', margin: '0px' }}>
-            {!isMatch    ?   <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'start', padding: '0 2rem', paddingLeft:'6rem' }}>
+         
+            {!isMatch    ?   <Box sx={{display:'flex', justifyContent:'center', alignItems:'center'}}>
               
-                <Box sx={{ paddingTop: '0.75rem' }}>
+                <Box>
                   <Button
                       style={{ backgroundColor: 'transparent' }}
                     className={classes.menuBtnStyle}
@@ -271,7 +267,7 @@ const Header = () => {
 
 
                 </Box>
-                <Box sx={{ paddingTop: '0.6rem' }}>
+                <Box sx={{marginLeft:'3rem'}}>
                   <Search>
                     <SearchIconWrapper>
                       <SearchIcon sx={{ color: '#524069', fontSize: '1.1rem' }} />
@@ -284,16 +280,11 @@ const Header = () => {
                     />
                   </Search>
                 </Box>
-              </Box> : ''}
-              
-            </Grid>
 
 
 
-{/* //GRID 1 - WISHLIST and CART ICON */}
 
-            <Grid item xs={1} sx={{ padding: '0px', margin: '0px' }} >
-              <Box sx={{ paddingTop: '10px', display:'flex', justifyContent:'end' }} >
+                <Box sx={{display:'flex', alignItems:'center', marginLeft:'8rem'}}>
                 <IconButton
                   size="small"
                   style={{ color: '#524069', margin:'0'}}
@@ -312,17 +303,44 @@ const Header = () => {
                   aria-label="open drawer"
                   sx={{ mr: 2 }}
                 >
-                  <Link href={"/shop/checkout"} passHref>
-                    <StyledBadge badgeContent={amount} >
+                
+                  <Link href={"/shop/cart"} passHref>
+                    <StyledBadge badgeContent={totalQty} >
                       <ShoppingCartIcon />
                     </StyledBadge>
                   </Link>
                 </IconButton>
               </Box>
-            </Grid>
-          </Grid>
+              </Box> : ''}
+              
+     
+
+
+
+
+
+       
+
+
+              
+
+</Container>
+
+
+
+
+
+
+       
+
+
+
+
+
+
+    
         </Toolbar>
-      </Container>
+    
     </AppBar>
   );
 }
