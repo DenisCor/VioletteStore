@@ -32,8 +32,8 @@ const useStyles = makeStyles({
 
   const classes = useStyles();
   return (
-    <Card sx={{ padding: '0.5rem', position: 'relative' }} className={classes.root}>
-      <CardActionArea>
+    <Card sx={{ padding: '0.5rem', position: 'relative'}} className={classes.root}>
+      <CardActionArea >
         <Link href={`/product/${product.attributes.slug}`}>
           <CardMedia
             component="img"

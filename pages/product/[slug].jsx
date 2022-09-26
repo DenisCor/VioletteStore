@@ -15,11 +15,16 @@ import Info from '../../src/components/product/Info'
 import CircularProgress from '@mui/material/CircularProgress';
 
 
+import {addToCart, removeFromCart} from '../../store/features/cart/cartSlice'
+import { useDispatch } from 'react-redux';
+
 
 
 
 
 const Product = () => {
+  const dispatch = useDispatch();
+  const [qty, setQty] = useState(1);
   const [singleProduct, setSingleProduct] = useState(null)
   const slug = useRouter().query.slug;
   
@@ -33,11 +38,21 @@ const Product = () => {
 
   console.log('%c SINGLE PRODUCT ', 'background: #222; color: #fe4d01', product);
 
+  const handleQty = (e, variant) => {
+    const iconName = e.target.name;
+    if (iconName === "add" && qty < variant.stock) {
+      setQty((qty) => qty + 1)
+    }
+    if (iconName === "remove" && qty > 1) {
+      setQty((qty) => qty - 1)
+    }
+  }
 
 
-  const onCartClick = ( e ) => {
+  const onCartClick = () => {
     // e.preventDefault();
     // cartAction.addToCart( product );
+    dispatch(addToCart({product, qty}))
 
     console.log('onCartClick')
 }
@@ -65,7 +80,7 @@ const Product = () => {
           </Grid>
 
           <Grid item lg={5} xs={12}>
-            <Details onCartClick={onCartClick} product={product} />
+            <Details onCartClick={onCartClick} handleQty={handleQty} setQty={setQty} qty={qty} product={product} />
           </Grid>
           <Grid item lg={12} xs={12}>
             <Info product={product} />

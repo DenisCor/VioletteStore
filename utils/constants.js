@@ -56,3 +56,22 @@ export const sortByNames = [{
   name: 'Price: High To Low',
   checked: false,
 }]
+
+export const colors = [{
+  id:1,
+  name: 'gold',
+  hex: '#eea411',
+  checked: false,
+},
+{
+  id:2,
+  name: 'silver',
+  hex: '#adacab',
+  checked: false,
+},
+{
+  id:3,
+  name: 'rosegold',
+  hex: '#c68c94',
+  checked: false,
+}]
