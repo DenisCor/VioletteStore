@@ -1,5 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
+
+
 const initialState = {
   wishlistData: [],
 }
@@ -16,9 +18,6 @@ const wishlistSlice = createSlice({
     addToWishlist: (state, { payload }) => {
       console.log('add to wishlist payload', {payload});
       const itemInCart = state.wishlistData.find((item) => item.id === payload.product.id && item.attributes.name === payload.product.attributes.name);
-   
-       
-    
       if (!itemInCart) {
         state.wishlistData.push({ ...payload.product });
       }

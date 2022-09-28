@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react'
 import Link from 'next/link'
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
@@ -7,11 +7,18 @@ import { CardActionArea } from '@mui/material';
 import Divider from '@mui/material/Divider';
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
+import FavoriteBorder from '@mui/icons-material/FavoriteBorder';
+import Favorite from '@mui/icons-material/Favorite';
+import IconButton from '@mui/material/IconButton';
+import Checkbox from '@mui/material/Checkbox';
 import { makeStyles } from '@mui/styles';
+
+import { useDispatch, useSelector } from 'react-redux';
+import { addToWishlist, removeFromWishlist } from '../../../store/features/wishlist/wishlistSlice'
 
 const useStyles = makeStyles({
   root: {
-    maxWidth: 260,
+    maxWidth: 300,
     transition: "transform 0.15s ease-in-out",
     "&:hover": { transform: "scale3d(1.02, 1.02, 1)",
     boxShadow: "0px 0px 10px 0.5px #524069" },
@@ -23,14 +30,25 @@ const useStyles = makeStyles({
   }}
 });
 
-
-
-
-
-
  const CardProduct = ({product}) => {
+  const dispatch = useDispatch();
+  const {wishlistData} = useSelector((state) => state.wishlist)
+  const isProductInWishlist = wishlistData.some(each => each.attributes.name === product.attributes.name)
 
+  const [favorite, setFavorite] = useState(isProductInWishlist)
   const classes = useStyles();
+
+
+const handleFavorites = () => {
+  setFavorite(!favorite)
+  if(!favorite){
+    return dispatch(addToWishlist({product}))
+  }
+    dispatch(removeFromWishlist(product))
+}
+
+
+console.log('isProductInWishlist', isProductInWishlist)
   return (
     <Card sx={{ padding: '0.5rem', position: 'relative'}} className={classes.root}>
       <CardActionArea >
@@ -43,9 +61,9 @@ const useStyles = makeStyles({
           />
         </Link>
         <Box style={{ position: 'absolute', top: 8, right: 8, zIndex: 1000 }}>
-          {/* <IconButton className={classes.iconBtn} size="small" color="primary" aria-label="expand image" sx={{ backgroundColor: '#fff', boxShadow: '0px 0px 15px -2px #524069' }}>
-                            <Checkbox {...label} icon={<FavoriteBorder />} checkedIcon={<Favorite />} />
-                          </IconButton> */}
+          <IconButton onClick={() => handleFavorites()} className={classes.iconBtn} size="small" color="primary" aria-label="expand image" sx={{ backgroundColor: '#fff', boxShadow: '0px 0px 15px -2px #524069' }}>
+            {isProductInWishlist ? <Favorite /> : <FavoriteBorder /> }
+          </IconButton>
         </Box>
         <CardContent>
           <Divider />

@@ -1,7 +1,7 @@
 
 
 
-import * as React from 'react';
+import React, {useState, useEffect} from 'react'
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -19,23 +19,24 @@ import ButtonGroup from '@mui/material/Button';
 import { IconButton } from '@mui/material'
 
 import {useDispatch, useSelector} from 'react-redux'
-import {addToCart, removeFromCart} from '../../store/features/cart/cartSlice'
+import {addToCart, removeFromCart, updateCart} from '../../store/features/cart/cartSlice'
 
 
 
 
 const Cart = () => {
   const dispatch = useDispatch();
-
-
   const {cartData, totalQty, totalAmount} = useSelector((state) => state.cart);
+  
 
 const removeCartItem = (item) => {
   dispatch(removeFromCart(item))
 }
+
+const updateCartItem = (item) => {
+  dispatch(updateCart(item))
+}
   
-
-
 
   return (
     <Container sx={{ minHeight:'100vh'}}>
@@ -44,7 +45,7 @@ const removeCartItem = (item) => {
       </Paper>
     <Grid container sx={{ height:'auto', marginTop:'1rem'}}>
    
-      <Grid  xs={12}  lg={8} item>
+      <Grid  xs={12}  lg={9} item>
         
           <Box sx={{marginRight:'1rem'}}>
           <TableContainer component={Paper}>
@@ -53,15 +54,17 @@ const removeCartItem = (item) => {
           <TableRow>
             <TableCell style={{padding:'2rem'}} >Product</TableCell>
             <TableCell align="right">Colour</TableCell>
-            <TableCell align="right">Price</TableCell>
             <TableCell align="right">Quantity</TableCell>
+            <TableCell align="right">Price</TableCell>
+           
             <TableCell align="right">Total</TableCell>
           </TableRow>
         </TableHead>
         <TableBody >
           {cartData.map((item) => (
+
             <TableRow
-              key={item.id}
+              key={item.id + item.selectedVariant.color_name}
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
               
             >
@@ -72,21 +75,39 @@ const removeCartItem = (item) => {
                 </Box>
               
               </TableCell>
-              <TableCell align="right">£{item.attributes.price.toFixed(2)}</TableCell>
+           
+              <TableCell align="right">{item.selectedVariant.color_name}</TableCell>
               <TableCell align="right">
-              <ButtonGroup
+
+             
+    
+          <ButtonGroup
             disableElevation
             variant="outlined"
             aria-label="Disabled elevation buttons"
             size="small"
-            sx={{ padding: 0, minWidth: '8rem', marginLeft: '0.5rem' }}
+            sx={{
+              padding: 0, minWidth: '8rem', marginLeft: '0.5rem', '&:hover': {
+                backgroundColor: 'transparent'
+              },
+            }}
           >
-            <Button disableRipple name="remove" onClick={(e) => handleQty(e)}>-</Button>
-            <Typography sx={{ fontSize: '0.9rem' }} variant="subtitle2">{item.qty}</Typography>
-            <Button disableRipple name="add" onClick={(e) => handleQty(e)}>+</Button>
+            <Button sx={{
+              '&:hover': {
+                backgroundColor: 'transparent'
+              }
+            }} disableRipple disableTouchRipple name="remove" onClick={(e) => updateCartItem({iconName: e.target.name, item})}>-</Button>
+            <Typography sx={{ fontSize: '0.9rem', minWidth: '20px' }} variant="subtitle2">{item.qty}</Typography>
+            <Button sx={{
+              '&:hover': {
+                backgroundColor: 'transparent'
+              }
+            }} disableRipple disableTouchRipple name="add" onClick={(e) => updateCartItem({iconName: e.target.name, item})}>+</Button>
           </ButtonGroup>
               </TableCell>
+                  <TableCell align="right">£{item.attributes.price.toFixed(2)}</TableCell> 
               <TableCell align="right">£{item.total.toFixed(2)}</TableCell>
+              <TableCell align="right"></TableCell>
               <TableCell align="right">
                 <IconButton disableRipple name="testname" id="testid" size="small"  onClick={() => removeCartItem(item)}>
                   <CloseIcon fontSize="small" sx={{ cursor: 'pointer' }} />
@@ -99,11 +120,7 @@ const removeCartItem = (item) => {
     </TableContainer>
           </Box>
       </Grid>
-
-
-
-
-      <Grid xs={12}  lg={4} item> <Paper elevation={6}>
+      <Grid xs={12}  lg={3} item> <Paper elevation={6}>
       <Box sx={{minHeight:'50vh', padding:'1rem', backgroundColor:'#ececec'}}>
       <Typography sx={{marginBottom:'1rem'}}>Cart Total</Typography>
         <Divider/>

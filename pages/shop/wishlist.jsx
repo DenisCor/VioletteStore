@@ -18,19 +18,22 @@ import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 
 import { useDispatch, useSelector } from 'react-redux'
 import {clearWishlist, addToWishlist, removeFromWishlist  } from '../../store/features/wishlist/wishlistSlice'
+import { addToCart, removeFromCart } from '../../store/features/cart/cartSlice'
+
+
 
 
 const Wishlist = () => {
   const dispatch = useDispatch();
-
-
   const { wishlistData} = useSelector((state) => state.wishlist);
 
   const removeWishlistItem= (item) => {
     dispatch(removeFromWishlist(item))
   }
 
-console.log('wishlistData+++++++++++++++++++++++++++++++++++++++++',wishlistData)
+  const addToCartFromWishlist= (item) => {
+    dispatch(addToCart(item))
+  }
 
   return (
     <Container sx={{ minHeight: '100vh' }}>
@@ -66,10 +69,11 @@ console.log('wishlistData+++++++++++++++++++++++++++++++++++++++++',wishlistData
                       <TableCell align="right">Silver</TableCell>
                       <TableCell align="right">£{item.attributes.price.toFixed(2)}</TableCell>
                       <TableCell align="right">
-                        <Typography sx={{ color: 'red' }}>Out of Stock</Typography>
+                        <Typography sx={{ color: 'red' }}>Temporarily out of stock.</Typography>
                       </TableCell>
                       <TableCell align="right">
-                        <Button onClick={() => console.log('add to cart')} variant="outlined" startIcon={<AddShoppingCartIcon fontSize="small" />}>
+                      
+                        <Button onClick={() => addToCartFromWishlist({item})} variant="outlined" startIcon={<AddShoppingCartIcon fontSize="small" />}>
                           <Typography sx={{ fontSize: '0.8rem', padding: '0.3rem 1.4rem' }} variant="subtitle2">Add To Cart</Typography>
                         </Button>
                       </TableCell>

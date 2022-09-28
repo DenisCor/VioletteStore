@@ -164,7 +164,7 @@ const Home = () => {
         </Box> :
           <>
             <Filters />
-            <Grid container spacing={4} columnSpacing={4.5}>
+            <Grid container spacing={2} columnSpacing={2}>
               {products.map((product) => (
                 <React.Fragment key={product.attributes.name}>
                   <Grid item xl={3} lg={3} md={3} sm={6} xs={12}>

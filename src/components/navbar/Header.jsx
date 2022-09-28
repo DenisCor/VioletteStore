@@ -2,7 +2,9 @@ import * as React from 'react';
 import Link from "next/link";
 import { styled, alpha } from '@mui/material/styles';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import FavoriteIcon from '@mui/icons-material/Favorite';
 import SearchIcon from '@mui/icons-material/Search';
 import { Button, Container, MenuItem, Menu, InputBase, Typography, IconButton, Toolbar, Box, AppBar, useMediaQuery } from '@mui/material';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
@@ -15,7 +17,7 @@ import { makeStyles } from '@mui/styles';
 import DrawerComp from '../mobile/Drawer'
 import Divider from '@mui/material/Divider';
 
-import {useSelector} from 'react-redux'
+import { useSelector } from 'react-redux'
 
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
@@ -75,54 +77,61 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 
 const useStyles = makeStyles({
-  menuBtnStyle:{
+  menuBtnStyle: {
+    '&:hover': {
+      backgroundColor:'transparent'
+    },
     color: '#524069',
-    fontSize: '0.8rem' ,
-      position: 'relative',
-      '&:before': {
-        content: "''",
-        position: 'absolute',
-        width: '0',
-        height: '2px',
-        bottom: '-3px',
-        left: '50%',
-        transform: 'translate(-50%,0%)',
-        backgroundColor: '#524069',
-        visibility: 'hidden',
-        transition: 'all 0.3s ease-in-out',
-      },
-      '&:hover:before': {
-        visibility: 'visible',
-        width: '100%',
-      },
-  },
-  menuStyle:{
-  fontFamily:'Poppins',
-  color:'red'
-  },
-  menuItem:{
-    fontFamily:'Poppins',
-    fontSize:'13px',
-    margin:'0.5rem 1.2rem',
-    color:'#524069',
+    fontSize: '0.8rem',
     position: 'relative',
-      '&:before': {
-        content: "''",
-        position: 'absolute',
-        width: '0',
-        height: '2px',
-        bottom: '-3px',
-        left: '50%',
-        transform: 'translate(-50%,0%)',
-        backgroundColor: '#524069',
-        visibility: 'hidden',
-        transition: 'all 0.2s ease-in-out'
-      },
-      '&:hover:before': {
-        visibility: 'visible',
-        width: '100%',
-      },
-    },   
+    '&:before': {
+      content: "''",
+      position: 'absolute',
+      width: '0',
+      height: '2px',
+      bottom: '-3px',
+      left: '50%',
+      transform: 'translate(-50%,0%)',
+      backgroundColor: '#524069',
+      visibility: 'hidden',
+      transition: 'all 0.3s ease-in-out',
+    },
+    '&:hover:before': {
+      visibility: 'visible',
+      width: '100%',
+    },
+  },
+  menuStyle: {
+    fontFamily: 'Poppins',
+    color: 'red',
+    width:'100%'
+  },
+  menuItem: {
+    fontFamily: 'Poppins',
+    fontSize: '13px',
+    margin: '0.5rem 1.2rem',
+    color: '#524069',
+    position: 'relative',
+    '&:before': {
+      content: "''",
+      position: 'absolute',
+      width: '0',
+      height: '2px',
+      bottom: '-3px',
+      left: '50%',
+      transform: 'translate(-50%,0%)',
+      backgroundColor: '#524069',
+      visibility: 'hidden',
+      transition: 'all 0.2s ease-in-out'
+    },
+    '&:hover:before': {
+      visibility: 'visible',
+      width: '100%',
+    },
+    '&:hover': {
+      backgroundColor:'transparent'
+    },
+  },
 });
 
 
@@ -131,16 +140,22 @@ const useStyles = makeStyles({
 
 
 const Header = () => {
-  const {cartData, totalQty, totalAmount} = useSelector((state) => state.cart);
+  const { cartData, totalQty, totalAmount } = useSelector((state) => state.cart);
+  const { wishlistData } = useSelector((state) => state.wishlist);
 
-  console.log('++++++++++++ cartData ++++++++++++', cartData)
-  console.log('++++++++++++ totalQty ++++++++++++', totalQty)
-  console.log('++++++++++++ totalAmount ++++++++++++', totalAmount)
+
 
 
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
+
+
+
+
+
+
+
   const handleClick = (e) => {
     setAnchorEl(e.currentTarget);
   };
@@ -157,23 +172,32 @@ const Header = () => {
 
 
 
-  
+
   return (
-    <AppBar position="static" sx={{ background: '#fff'}} >
-     
-        <Toolbar>
-          
+    <AppBar position="static" sx={{ background: '#fff' }} >
+      <Toolbar>
+        <Container maxWidth="lg" sx={{ display: 'flex', justifyContent: 'space-between', alignContent: 'center' }}>
 
-<Container maxWidth="lg" sx={{display:'flex', justifyContent:'space-between', alignContent:'center'}}>
 
-            {!isMatch ? <Link href={"/"} passHref>
-            <a>
-                <Image src="/logo.png" width="50" height="50" style={{ cursor: 'pointer' }} />
+{/* LOGO */}
+          {!isMatch ? <Link href={"/"} passHref>
+            <a style={{paddingTop:'0.4rem' }}>
+              <Image src="/logo.png" width="50" height="50" style={{ cursor: 'pointer'}} />
             </a>
-              
-              </Link> : <DrawerComp/>}
-              
-     
+          </Link> : <DrawerComp />}
+          {!isMatch ? <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+
+
+
+{/* MENU */}
+            <Box>
+              <Button
+              disableRipple disableTouchRipple 
+                className={classes.menuBtnStyle}
+                onClick={() => console.log('NEW ARRIVALS')}
+              >
+                NEW ARRIVALS
+              </Button>
 
 
 
@@ -181,166 +205,135 @@ const Header = () => {
 
 
 
+              <Button
+              disableRipple disableTouchRipple 
+                className={classes.menuBtnStyle}
+                name="Jewelry"
+                onClick={handleClick}
+                endIcon={(anchorEl && anchorEl.name === 'Jewelry') ? <ArrowDropDownIcon /> : <ArrowLeftIcon />}
+              >
+                Jewelry
+              </Button>
 
 
-         
-            {!isMatch    ?   <Box sx={{display:'flex', justifyContent:'center', alignItems:'center'}}>
-              
-                <Box>
-                  <Button
-                      style={{ backgroundColor: 'transparent' }}
-                    className={classes.menuBtnStyle}
-                    onClick={() => console.log('NEW ARRIVALS')}
-                  >
-                    NEW ARRIVALS
-                  </Button>
 
-                  
-                  <Button
-                    style={{ backgroundColor: 'transparent' }}
-                    className={classes.menuBtnStyle}
-                    name="Jewelry"
-                    onClick={handleClick}
-                    endIcon={(anchorEl && anchorEl.name === 'Jewelry') ? <ArrowDropDownIcon /> : <ArrowLeftIcon />}
-                  >
-                    Jewelry
-                  </Button>
-                  <Menu
-                  variant="menu"
-                  className={classes.menuStyle}
-                    id="basic-menu"
-                    anchorEl={anchorEl}
-                    open={open}
-                    onClose={handleClose}
-                    MenuListProps={{
-                      'aria-labelledby': 'basic-button',
-                    }}
-                  >
-                    <MenuItem onClick={handleClose}>EARRINGS</MenuItem>
-                    <MenuItem  onClick={handleClose}>BRACELETS</MenuItem>
-                    <MenuItem onClick={handleClose}>BROOCHES</MenuItem>
-                    <MenuItem onClick={handleClose}>JEWELRY SETS</MenuItem>
-                  </Menu>
-                  <Button
-                    style={{ backgroundColor: 'transparent' }}
-                    name="Headpieces"
-                    className={classes.menuBtnStyle}
-                    onClick={handleClick}
-                    endIcon={(anchorEl && anchorEl.name === 'Headpieces') ? <ArrowDropDownIcon /> : <ArrowLeftIcon />}
-                  >
-                    Headpieces
-                  </Button>
-                  <Menu
-                  variant="menu"
-                  className={classes.menuStyle}
-                    id="basic-menu"
-                    anchorEl={anchorEl}
-                    open={open}
-                    onClose={handleClose}
-                    MenuListProps={{
-                      'aria-labelledby': 'basic-button',
-                    }}
-                  >
-                   <MenuItem style={{ backgroundColor: 'transparent' }} onClick={handleClose}>EARRINGS</MenuItem>
-                    <MenuItem style={{ backgroundColor: 'transparent' }}  onClick={handleClose}>BRACELETS</MenuItem>
-                    <MenuItem style={{ backgroundColor: 'transparent' }}  onClick={handleClose}>BROOCHES</MenuItem>
-                    <MenuItem style={{ backgroundColor: 'transparent' }} onClick={handleClose}>JEWELRY SETS</MenuItem>
-                  </Menu>
-                  <Button
-                    style={{ backgroundColor: 'transparent' }}
-                    className={classes.menuBtnStyle}
-                    onClick={() => console.log('SALE')}
-                  >
-                    SALE
-                  </Button>
-                 
-
-                  <Link href={"/contact"} passHref>
-                  <Button 
-                    style={{ backgroundColor: 'transparent' }}
-                    className={classes.menuBtnStyle}
-                    onClick={() => console.log('contact')}
-                  >
-                    CONTACT
-                  </Button>
-                  </Link>
+              <Menu
+                variant="menu"
+                className={classes.menuStyle}
+                id="basic-menu"
+                anchorEl={anchorEl}
+                open={open}
+                onClose={handleClose}
+                MenuListProps={{
+                  'aria-labelledby': 'basic-button',
+                }}
+              >
+                <MenuItem disableRipple disableTouchRipple className={classes.menuItem} onClick={handleClose}>EARRINGS</MenuItem>
+                <MenuItem disableRipple disableTouchRipple  className={classes.menuItem} onClick={handleClose}>BRACELETS</MenuItem>
+                <MenuItem disableRipple disableTouchRipple  className={classes.menuItem} onClick={handleClose}>BROOCHES</MenuItem>
+                <MenuItem disableRipple disableTouchRipple  className={classes.menuItem} onClick={handleClose}>JEWELRY SETS</MenuItem>
+              </Menu>
 
 
-                </Box>
-                <Box sx={{marginLeft:'3rem'}}>
-                  <Search>
-                    <SearchIconWrapper>
-                      <SearchIcon sx={{ color: '#524069', fontSize: '1.1rem' }} />
-                    </SearchIconWrapper>
-                    <StyledInputBase
-                      placeholder="Search…"
-                      inputProps={{ 'aria-label': 'search' }}
-                      sx={{ fontFamily: 'Assistant' }}
-                      style={{ color: '#524069', border: '1px solid #524069', padding: '0px', fontFamily: 'Poppins', fontSize: '14px' }}
-                    />
-                  </Search>
-                </Box>
+
+              <Button
+              disableRipple disableTouchRipple 
+                name="Headpieces"
+                className={classes.menuBtnStyle}
+                onClick={handleClick}
+                endIcon={(anchorEl && anchorEl.name === 'Headpieces') ? <ArrowDropDownIcon /> : <ArrowLeftIcon />}
+              >
+                Headpieces
+              </Button>
+
+      
 
 
 
 
-                <Box sx={{display:'flex', alignItems:'center', marginLeft:'8rem'}}>
-                <IconButton
-                  size="small"
-                  style={{ color: '#524069', margin:'0'}}
-                  color="inherit"
-                  aria-label="open drawer"
-                  sx={{ mr: 2 }}
+
+              <Button
+              disableRipple disableTouchRipple 
+                className={classes.menuBtnStyle}
+                onClick={() => console.log('SALE')}
+              >
+                SALE
+              </Button>
+
+
+              <Link href={"/contact"} passHref>
+                <Button
+                disableRipple disableTouchRipple 
+                  className={classes.menuBtnStyle}
                 >
-                  <Link href={"/shop/wishlist"} passHref>
-                    <FavoriteBorderIcon />
-                  </Link>
-                </IconButton>
-                <IconButton
-                  size="small"
-                  style={{ color: '#524069' }}
-                  color="inherit"
-                  aria-label="open drawer"
-                  sx={{ mr: 2 }}
-                >
-                
-                  <Link href={"/shop/cart"} passHref>
-                    <StyledBadge badgeContent={totalQty} >
-                      <ShoppingCartIcon />
-                    </StyledBadge>
-                  </Link>
-                </IconButton>
-              </Box>
-              </Box> : ''}
-              
-     
-
-
-
-
-
-       
-
-
-              
-
-</Container>
+                  CONTACT
+                </Button>
+              </Link>
+            </Box>
 
 
 
 
 
 
-       
 
 
 
 
 
 
-    
-        </Toolbar>
-    
+
+
+            
+            <Box sx={{ marginLeft: '3rem' }}>
+              <Search>
+                <SearchIconWrapper>
+                  <SearchIcon sx={{ color: '#524069', fontSize: '1.1rem' }} />
+                </SearchIconWrapper>
+                <StyledInputBase
+                  placeholder="Search…"
+                  inputProps={{ 'aria-label': 'search' }}
+                  sx={{ fontFamily: 'Assistant' }}
+                  style={{ color: '#524069', border: '1px solid #524069', padding: '0px', fontFamily: 'Poppins', fontSize: '14px' }}
+                />
+              </Search>
+            </Box>
+
+
+
+
+
+{/* CART & WISHLIST */}
+
+            <Box sx={{ display: 'flex', alignItems: 'center', marginLeft: '8rem' }}>
+              <IconButton
+                size="small"
+                style={{ color: '#524069', margin: '0' }}
+                color="inherit"
+                aria-label="open drawer"
+                sx={{ mr: 2 }}
+              >
+                <Link href={"/shop/wishlist"} passHref>
+                  {wishlistData.length > 0 ? <FavoriteIcon /> : <FavoriteBorderIcon />}
+                </Link>
+              </IconButton>
+              <IconButton
+                size="small"
+                style={{ color: '#524069' }}
+                color="inherit"
+                aria-label="open drawer"
+                sx={{ mr: 2 }}
+              >
+                <Link href={"/shop/cart"} passHref>
+                  <StyledBadge badgeContent={totalQty} >
+                    {cartData.length > 0 ? <ShoppingCartIcon /> : <ShoppingCartOutlinedIcon/>}
+                  </StyledBadge>
+                </Link>
+              </IconButton>
+            </Box>
+          </Box> : ''}
+        </Container>
+      </Toolbar>
     </AppBar>
   );
 }
