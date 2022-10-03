@@ -18,6 +18,7 @@ import { colors } from '../../../utils/constants'
 
 
 import { addToCart, removeFromCart } from '../../../store/features/cart/cartSlice'
+
 import { useDispatch } from 'react-redux';
 
 
@@ -76,15 +77,16 @@ const BpCheckedIcon = styled('span')(({ theme, color }) => ({
   // },
 }));
 
-const Details = ({ product, onCartClick, handleQty, setQty, qty }) => {
+const Details = ({ product, onCartClick, onWishlistClick, handleQty, setQty, qty, setSelectedVariant, selectedVariant }) => {
   const dispatch = useDispatch();
-  const [selectedColor, setSelectedColor] = useState()
 
 
 
-useEffect(() => {
-  handleColorChange(product.attributes.variants[0])
-},[])
+
+
+  useEffect(() => {
+    handleColorChange(product.attributes.variants[0])
+  }, [])
   //------------------------------------------------------------
 
 
@@ -96,21 +98,21 @@ useEffect(() => {
 
   const handleColorChange = (variant) => {
     setQty(1)
-    setSelectedColor(variant)
+    setSelectedVariant(variant)
     const color = colors.map(color => {
-      if(color.name === variant.color_name){
+      if (color.name === variant.color_name) {
         color.checked = true
-      }else{
+      } else {
         color.checked = false
       }
     })
 
-    
+
 
   }
   //------------------------------------------------------------
 
-console.log('selectedColor',selectedColor)
+
 
   //******INFO******
   //address product.name error wich shows up sometimes
@@ -130,12 +132,15 @@ console.log('selectedColor',selectedColor)
           {product.attributes.short_description}
         </Typography>
 
+
+
+
         <Box style={{ padding: '10px 0' }}>
           Colour:
 
           {product.attributes.variants.map(variant => {
             const color = colors.find(color => color.name === variant.color_name)
-          
+
             return <>
               <Radio
                 checked={color.checked}
@@ -155,10 +160,10 @@ console.log('selectedColor',selectedColor)
         </Box>
 
 
-
-
-
-
+        <Box style={{ display: 'flex' }}>
+          <Typography sx={{ fontSize: '1rem', paddingRight: '1rem' }}>  Status:</Typography>
+          <Typography sx={{ color: 'green' }}>In Stock. </Typography>
+        </Box>
 
 
         <Box style={{ padding: '20px 0px', display: 'flex', alignItems: 'center' }}>
@@ -168,26 +173,39 @@ console.log('selectedColor',selectedColor)
             variant="outlined"
             aria-label="Disabled elevation buttons"
             size="small"
-            sx={{ padding: 0, minWidth: '8rem', marginLeft: '0.5rem' }}
+            sx={{
+              padding: 0, minWidth: '8rem', marginLeft: '0.5rem', '&:hover': {
+                backgroundColor: 'transparent'
+              },
+            }}
           >
-            <Button disableRipple name="remove" onClick={(e) => handleQty(e, selectedColor)}>-</Button>
-            <Typography sx={{ fontSize: '0.9rem' }} variant="subtitle2">{qty}</Typography>
-            <Button disableRipple name="add" onClick={(e) => handleQty(e,selectedColor)}>+</Button>
+            <Button sx={{
+              '&:hover': {
+                backgroundColor: 'transparent'
+              }
+            }} disableRipple disableTouchRipple name="remove" onClick={(e) => handleQty(e, selectedVariant)}>-</Button>
+            <Typography sx={{ fontSize: '0.9rem', minWidth: '20px' }} variant="subtitle2">{qty}</Typography>
+            <Button sx={{
+              '&:hover': {
+                backgroundColor: 'transparent'
+              }
+            }} disableRipple disableTouchRipple name="add" onClick={(e) => handleQty(e, selectedVariant)}>+</Button>
           </ButtonGroup>
         </Box>
 
         <Divider sx={{ paddingTop: '1rem' }} />
 
-        <Box style={{ padding: '20px 0', display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginRight: '6rem' }}>
+        <Box style={{ padding: '20px 0', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
           <Button onClick={() => onCartClick()} variant="outlined" startIcon={<AddShoppingCartIcon fontSize="small" />}>
             <Typography sx={{ fontSize: '0.8rem', padding: '0.3rem 1.4rem' }} variant="subtitle2">Add To Cart</Typography>
           </Button>
-
-
-          <Box sx={{ display: 'flex', alignItems: 'center' }}>
-            <FavoriteBorderIcon sx={{ fontSize: '0.8rem', marginRight: '5px' }} />
-            <Typography sx={{ fontSize: '0.9rem' }} variant="subtitle2">Add to wishlist</Typography>
+          <Box sx={{ marginRight: '5rem' }}>
+            <ButtonGroup disableRipple disableTouchRipple sx={{ display: 'flex', alignItems: 'center' }} size="small" onClick={() => onWishlistClick()}>
+              <FavoriteBorderIcon sx={{ fontSize: '1rem', marginRight: '5px' }} />
+              <Typography sx={{ fontSize: '0.8rem' }} variant="subtitle2">Add to wishlist</Typography>
+            </ButtonGroup>
           </Box>
+
         </Box>
         <Divider />
         <Typography sx={{ paddingTop: '1rem', fontSize: '0.9rem' }}>Category: {product.attributes.category.data.attributes.name}</Typography>

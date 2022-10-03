@@ -34,6 +34,13 @@ export const categoryNames = [{
 }]
 
 
+
+
+
+
+
+
+
 export const sortByNames = [{
   id:1,
   name: 'Default',
@@ -44,15 +51,19 @@ export const sortByNames = [{
   name: 'Newness',
   checked: false,
 },
-
 {
   id:3,
+  name: 'On Sale',
+  checked: false,
+},
+{
+  id:4,
   name: 'Price: Low To High',
   checked: false,
 },
 
 {
-  id:4,
+  id:5,
   name: 'Price: High To Low',
   checked: false,
 }]

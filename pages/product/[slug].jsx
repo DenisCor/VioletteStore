@@ -16,6 +16,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 
 
 import {addToCart, removeFromCart} from '../../store/features/cart/cartSlice'
+import {addToWishlist} from '../../store/features/wishlist/wishlistSlice'
 import { useDispatch } from 'react-redux';
 
 
@@ -25,18 +26,18 @@ import { useDispatch } from 'react-redux';
 const Product = () => {
   const dispatch = useDispatch();
   const [qty, setQty] = useState(1);
+  const [selectedVariant, setSelectedVariant] = useState()
+
   const [singleProduct, setSingleProduct] = useState(null)
   const slug = useRouter().query.slug;
   
   
-  console.log('sluuug is: ', slug)
+
   const { data, loading, error } = useQuery( GET_PRODUCT, { variables: { slug } } );
 
 
   const product = data && data.products.data[0];
-  console.log('single product data: ', data)
 
-  console.log('%c SINGLE PRODUCT ', 'background: #222; color: #fe4d01', product);
 
   const handleQty = (e, variant) => {
     const iconName = e.target.name;
@@ -50,12 +51,18 @@ const Product = () => {
 
 
   const onCartClick = () => {
-    // e.preventDefault();
-    // cartAction.addToCart( product );
-    dispatch(addToCart({product, qty}))
-
-    console.log('onCartClick')
+    dispatch(addToCart({product, qty, selectedVariant}))
 }
+
+const onWishlistClick = () => {
+  dispatch(addToWishlist({product, qty}))
+}
+
+
+
+
+
+console.log('selectedVariant', selectedVariant)
 //===========================STYLES==============================
 
   const boxStyle = {
@@ -80,7 +87,7 @@ const Product = () => {
           </Grid>
 
           <Grid item lg={5} xs={12}>
-            <Details onCartClick={onCartClick} handleQty={handleQty} setQty={setQty} qty={qty} product={product} />
+            <Details onCartClick={onCartClick} selectedVariant={selectedVariant} setSelectedVariant={setSelectedVariant} onWishlistClick={onWishlistClick} handleQty={handleQty} setQty={setQty} qty={qty} product={product} />
           </Grid>
           <Grid item lg={12} xs={12}>
             <Info product={product} />
