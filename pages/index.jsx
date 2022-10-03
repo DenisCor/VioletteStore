@@ -59,21 +59,22 @@ import CardProduct from '../src/components/card/CardProduct';
 
 
 
-const useStyles = makeStyles({
-  root:{
- 
-     border:'1px solid pink'
-  
-  }
-  
-});
+
 
 
 
 const Home = () => {
-  const classes = useStyles();
   const { data, error, loading } = useQuery(GET_PRODUCTS)
   const [products, setProducts] = useState([]);
+  const [searchTerm, setSearchTerm] = useState('');
+
+  const [searchResults, setSearchResults] = useState([]);
+
+
+
+
+
+
 
   useEffect(() => {
     if (data) {
@@ -81,15 +82,41 @@ const Home = () => {
     }
   }, [data])
 
+  // useEffect(() => {
+  //   const results = users.results.filter(person =>
+  //     person.name.first.toLowerCase().includes(searchTerm)
+  //   );
+  //   setSearchResults(results);
+  // }, [searchTerm]);
+
   console.log('%c PRODUCTS ', 'background: #222; color: #bada55', products);
 
-
-
-
-
-
-
   const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
+
+ //===========================FILTER LOGIC==============================
+
+ const handleSearch = e => {
+  setSearchTerm(e.target.value);
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -163,7 +190,7 @@ const Home = () => {
           <CircularProgress />
         </Box> :
           <>
-            <Filters />
+            <Filters products={products}/>
             <Grid container spacing={2} columnSpacing={2}>
               {products.map((product) => (
                 <React.Fragment key={product.attributes.name}>

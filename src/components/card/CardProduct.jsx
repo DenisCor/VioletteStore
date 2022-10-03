@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import React, { useState, useEffect } from 'react'
 import Link from 'next/link'
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
@@ -10,7 +10,6 @@ import Card from '@mui/material/Card';
 import FavoriteBorder from '@mui/icons-material/FavoriteBorder';
 import Favorite from '@mui/icons-material/Favorite';
 import IconButton from '@mui/material/IconButton';
-import Checkbox from '@mui/material/Checkbox';
 import { makeStyles } from '@mui/styles';
 
 import { useDispatch, useSelector } from 'react-redux';
@@ -20,37 +19,39 @@ const useStyles = makeStyles({
   root: {
     maxWidth: 300,
     transition: "transform 0.15s ease-in-out",
-    "&:hover": { transform: "scale3d(1.02, 1.02, 1)",
-    boxShadow: "0px 0px 10px 0.5px #524069" },
+    "&:hover": {
+      transform: "scale3d(1.02, 1.02, 1)",
+      boxShadow: "0px 0px 10px 0.5px #524069"
+    },
   },
-  iconBtn:{
-    width:'2rem',
-    height:'2rem',
-    "&:hover": { backgroundColor:'#d5cce0'
-  }}
+  iconBtn: {
+    width: '2rem',
+    height: '2rem',
+    "&:hover": {
+      backgroundColor: '#d5cce0'
+    }
+  }
 });
 
- const CardProduct = ({product}) => {
+const CardProduct = ({ product }) => {
   const dispatch = useDispatch();
-  const {wishlistData} = useSelector((state) => state.wishlist)
+  const { wishlistData } = useSelector((state) => state.wishlist)
   const isProductInWishlist = wishlistData.some(each => each.attributes.name === product.attributes.name)
-
   const [favorite, setFavorite] = useState(isProductInWishlist)
   const classes = useStyles();
 
 
-const handleFavorites = () => {
-  setFavorite(!favorite)
-  if(!favorite){
-    return dispatch(addToWishlist({product}))
-  }
+  const handleFavorites = () => {
+    setFavorite(!favorite)
+    if (!favorite) {
+      return dispatch(addToWishlist({ product }))
+    }
     dispatch(removeFromWishlist(product))
-}
+  }
 
 
-console.log('isProductInWishlist', isProductInWishlist)
   return (
-    <Card sx={{ padding: '0.5rem', position: 'relative'}} className={classes.root}>
+    <Card sx={{ padding: '0.5rem', position: 'relative' }} className={classes.root}>
       <CardActionArea >
         <Link href={`/product/${product.attributes.slug}`}>
           <CardMedia
@@ -62,7 +63,7 @@ console.log('isProductInWishlist', isProductInWishlist)
         </Link>
         <Box style={{ position: 'absolute', top: 8, right: 8, zIndex: 1000 }}>
           <IconButton onClick={() => handleFavorites()} className={classes.iconBtn} size="small" color="primary" aria-label="expand image" sx={{ backgroundColor: '#fff', boxShadow: '0px 0px 15px -2px #524069' }}>
-            {isProductInWishlist ? <Favorite /> : <FavoriteBorder /> }
+            {isProductInWishlist ? <Favorite/> : <FavoriteBorder />}
           </IconButton>
         </Box>
         <CardContent>
